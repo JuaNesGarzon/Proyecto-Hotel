@@ -11,7 +11,7 @@
     <?php 
     include ('../APP/config/conexion.php');
     ?>
-<header class="bg-transparent absolute w-full z-10">
+    <header class="bg-transparent absolute w-full z-10">
         <section class="max-w-7xl mx-auto px-4 py-4">
             <nav class="flex items-center justify-between">
                 <div class="text-white text-lg font-serif tracking-wide text-center">
