@@ -1,15 +1,13 @@
 <?php 
 $conexion;
 
-$host = "localhost";
-$db = "hotel_dejavu";
-$name = "root";
-$pass = "";
-
-echo 'conexion exitosa';
+$db_host = "localhost";
+$db_name = "hotel_dejavu";
+$db_user = "root";
+$db_pass = "";
 
 try {
-    $conexion = new mysqli($db, $name, $pass, $host);
+    $conexion = new mysqli($db_host, $db_user, $db_pass, $db_name);
     if ($conexion->connect_error) {
         throw new Exception("Error de conexión: " . $conexion->connect_error);
     }

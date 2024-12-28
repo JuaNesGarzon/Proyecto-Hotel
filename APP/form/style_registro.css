@@ -169,3 +169,9 @@ padding: 0 30px;
         border-top-right-radius: 0;
     }
 }
+
+.mensaje {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+}
