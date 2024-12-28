@@ -16,10 +16,21 @@ if (isset($_SESSION['mensaje'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Página Principal - Hotel Dejá Vu</title>
 </head>
 <body>
     <h1>Bienvenido a Hotel Dejá Vu</h1>
+=======
+    <link href="./output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/2ca8f52626.js" crossorigin="anonymous"></script>
+    <script src="./js/functionality.js" defer></script>
+    <title>Document</title>
+</head>
+<body class="bg-gray-100">
+    <h1>hola</h1>
+>>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
     
     <?php 
     if (isset($_SESSION['user_id'])) {
@@ -29,8 +40,12 @@ if (isset($_SESSION['mensaje'])) {
         echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
     }
     ?>
+<<<<<<< HEAD
 
 <header class="bg-transparent absolute w-full z-10">
+=======
+    <header class="bg-transparent absolute w-full z-10">
+>>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
         <section class="max-w-7xl mx-auto px-4 py-4">
             <nav class="flex items-center justify-between">
                 <div class="text-white text-lg font-serif tracking-wide text-center">
@@ -50,7 +65,11 @@ if (isset($_SESSION['mensaje'])) {
     </header>
     <main class="relative min-h-screen">
         <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+<<<<<<< HEAD
             <source src="../Assets/videos/3190-166339081_small.mp4" type="video/mp4">
+=======
+            <source src="./assets/videos/3190-166339081_small.mp4" type="video/mp4">
+>>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
         </video>
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-white text-center">
