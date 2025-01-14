@@ -12,3 +12,28 @@ btnSingUp.addEventListener("click", e => {
     formLogin.classList.add("hide");
     formRegister.classList.remove("hide");
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+    const togglePasswordElements = [
+        { toggleId: 'togglePasswordRegister', inputId: 'passwordRegister' },
+        { toggleId: 'togglePasswordLogin', inputId: 'passwordLogin' }
+    ];
+
+    togglePasswordElements.forEach(element => {
+        const togglePassword = document.getElementById(element.toggleId);
+        const passwordInput = document.getElementById(element.inputId);
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                // Alternar el atributo type
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Alternar las clases del ícono
+                this.classList.toggle('bx-hide');
+                this.classList.toggle('bx-show');
+            });
+        }
+    });
+});
+

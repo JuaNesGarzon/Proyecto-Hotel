@@ -4,9 +4,16 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../config/conexion.php';
+require_once __DIR__ . '/encriptar_desencriptar.php';
 
 class HuespedController {
     private $conexion;
+    private $clave = "d3j4vu_H0t3l";
+
+    private function inicializarConexion() {
+        require __DIR__ . '/../config/conexion.php';
+        return $conexion;
+    }
 
     public function __construct() {
         $this->conexion =$this->inicializarConexion();
@@ -15,38 +22,50 @@ class HuespedController {
         }
     }
 
-    private function inicializarConexion() {
-        require __DIR__ . '/../config/conexion.php';
-        return $conexion;
-    }
-
     public function registrarHuesped($datos) {
+        $encriptarDesencriptar = new EncriptarDesencriptar();
         $nombre = htmlspecialchars($datos['nombre']);
         $documento = intval($datos['documento']);
-        $telefono = intval($datos['telefono']);
+        $telefono = htmlspecialchars($datos['telefono']);
         $nacionalidad = htmlspecialchars($datos['nacionalidad']);
         $correo = filter_var($datos['correo'], FILTER_SANITIZE_EMAIL);
-        $contraseña = password_hash($datos['contraseña'], PASSWORD_DEFAULT);
+        $contraseña = $encriptarDesencriptar->encrypt($datos['contraseña'], $this->clave);
 
-        $sql = "INSERT INTO huespedes (nombre, documento, telefono, nacionalidad, correo, contraseña)
+        // consulta para insertar el usuario
+
+        $query = "SELECT id_huesped FROM huespedes WHERE documento = ? ";
+        $stmt = $this->conexion->prepare($query);
+        try {
+            $stmt->bind_param("i", $documento);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {                    
+                return "Ya existe un usuario con ese documento.";
+            } else{
+                $sql = "INSERT INTO huespedes (nombre, documento, telefono, nacionalidad, correo, contraseña)
                 VALUES (?, ?, ?, ?, ?, ?)";
-                
-        // Preparar sentencia
-        $stmt = $this->conexion->prepare($sql);
-        if (!$stmt) {
-            return "Error en la preparación de la consulta: " . $this->conexion->error;
-        }
-
-        $stmt->bind_param("siisss", $nombre, $documento, $telefono, $nacionalidad, $correo, $contraseña);
-        // Ejecutar la consulta y verificar resultados
-        if ($stmt->execute()) {
-            return "Usuario registrado con éxito.";
-        } else {
-            return "Error al registrar el usuario: " . $stmt->error;
+                    
+                // Preparar sentencia
+                $stmt = $this->conexion->prepare($sql);
+                try{
+                    $stmt->bind_param("siisss", $nombre, $documento, $telefono, $nacionalidad, $correo, $contraseña);
+                    // Ejecutar la consulta y verificar resultados
+                    if ($stmt->execute()) {
+                        return "Usuario registrado con éxito.";
+                    } else {
+                        return "Error al registrar el usuario: " . $stmt->error;
+                    }
+                } catch (Exception $e) {
+                    return "Error en la consulta: " . $e->getMessage();
+                }
+            }
+        } catch (Exception $e) {
+            return "Error en la consulta: " . $e->getMessage();
         }
     }
 
     public function iniciarSesion($datos) {
+        $encriptarDesencriptar = new EncriptarDesencriptar();
         $correo = filter_var($datos['email'], FILTER_SANITIZE_EMAIL);
         $password = $datos['password'];
 
@@ -63,13 +82,14 @@ class HuespedController {
 
         if ($result->num_rows === 1) {
             $usuario = $result->fetch_assoc();
+            $password_db = $encriptarDesencriptar->decrypt($usuario['contraseña'], $this->clave);
 
-            if (password_verify($password, $usuario['contraseña'])) {
+            if($password == $password_db){
                 $_SESSION['user_id'] = $usuario['id_huesped'];
                 $_SESSION['user_name'] = $usuario['nombre'];
                 return "Inicio de sesión exitoso. Bienvenido, " . $usuario['nombre'] . "!";
             } else {
-                return "Contraseña incorrecta.";
+                return"La contraseña no es correcta";
             }
         } else {
             return "No se encontró un usuario con ese correo.";

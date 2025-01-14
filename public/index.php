@@ -4,7 +4,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include __DIR__ . '/../APP/controllers/huespedController.php';
 
-// Mostrar mensaje si existe
+
+//Mostrar mensaje si existe
 if (isset($_SESSION['mensaje'])) {
     echo "<p>" . $_SESSION['mensaje'] . "</p>";
     unset($_SESSION['mensaje']); // Limpiar el mensaje después de mostrarlo
@@ -16,12 +17,14 @@ if (isset($_SESSION['mensaje'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Página Principal - Hotel Dejá Vu</title>
+    <link href="./output.css" rel="stylesheet">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://kit.fontawesome.com/2ca8f52626.js" crossorigin="anonymous"></script>
+    <script src="./js/functionality.js" defer></script>
+    <title>Pagina principal</title>
 </head>
-<body>
-    <h1>Bienvenido a Hotel Dejá Vu</h1>
-    
+<body class="bg-gray-100">
+
     <?php 
     if (isset($_SESSION['user_id'])) {
         echo "<p>Usuario logueado: " . $_SESSION['user_name'] . "</p>";
@@ -30,12 +33,7 @@ if (isset($_SESSION['mensaje'])) {
         echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
     }
     ?>
-<<<<<<< HEAD
-
-<header class="bg-transparent absolute w-full z-10">
-=======
     <header class="bg-transparent absolute w-full z-10">
->>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
         <section class="max-w-7xl mx-auto px-4 py-4">
             <nav class="flex items-center justify-between">
                 <div class="text-white text-lg font-serif tracking-wide text-center">
@@ -44,7 +42,7 @@ if (isset($_SESSION['mensaje'])) {
                 </div>
                 <div class="flex items-center space-x-4">
                     <button type="button" class="bg-[#A39B8B] text-white px-6 py-2 rounded-md font-normal hover:bg-[#8A8270] transition">
-                        Book Now
+                        Reserva ahora
                     </button>
                     <button id="hamburguer" type="button" class="text-white text-2xl">
                         <i class="fa-solid fa-bars"></i>
@@ -55,17 +53,13 @@ if (isset($_SESSION['mensaje'])) {
     </header>
     <main class="relative min-h-screen">
         <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-<<<<<<< HEAD
             <source src="../Assets/videos/3190-166339081_small.mp4" type="video/mp4">
-=======
-            <source src="./assets/videos/3190-166339081_small.mp4" type="video/mp4">
->>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
         </video>
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-white text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-wider">A UNIQUE EXPERIENCE</h1>
-            <p class="text-2xl md:text-4xl mb-12">WHERE TO STAY</p>
-            <p class="text-sm mb-8 tracking-widest">LUXURY HOTEL EXPERIENCE</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-wider">Una experiencia unica</h1>
+            <p class="text-2xl md:text-4xl mb-12">DONDE QUEDARSE</p>
+            <p class="text-sm mb-8 tracking-widest">HOTEL DEJÁ VU</p>
         </div>
     </main>
     <aside id="menu" class="fixed top-0 right-0 h-full w-64 bg-white text-gray-800 shadow-lg z-50 p-6 transform translate-x-full transition-transform duration-300 ease-in-out">

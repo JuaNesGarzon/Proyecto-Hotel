@@ -21,7 +21,7 @@ body {
     max-width: 900px;
     transition: all 0.5s ease;
     margin: 200px;
-    border: solid thin red;
+    border: solid thin black;
 }
 /*cambiar color*/
 .overlay {
@@ -168,10 +168,4 @@ padding: 0 30px;
         border-bottom-left-radius: 20px;
         border-top-right-radius: 0;
     }
-}
-
-.mensaje {
-    color: green;
-    font-size: 14px;
-    margin-top: 10px;
 }

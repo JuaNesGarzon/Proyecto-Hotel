@@ -2,12 +2,12 @@
 session_start();
 include __DIR__ . '/../../APP/controllers/huespedController.php';
 
-$mensaje = ""; // Inicializamos la variable
+$mensaje = ""; // inicializamos la variable
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['registrarse'])) {
         $mensaje = $huespedController->registrarHuesped($_POST);
-    } elseif (isset($_POST['iniciar_sesion'])) {
+    } else if (isset($_POST['iniciar_sesion'])) {
         $mensaje = $huespedController->iniciarSesion($_POST);
     }
 }
@@ -72,7 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </label>
                     <label>
                         <i class='bx bx-lock bx-tada bx-rotate-90'></i>
-                        <input type="password" name="contraseña" placeholder="contraseña" required/>
+                        <input type="password" id="passwordRegister" name="password" placeholder="contraseña" required/>
+                        <i class='bx bx-hide password-toggle' id="togglePasswordRegister"></i>
                     </label>
                     <button type="submit" name="registrarse" value="registrarse">registrarse</button>
                 </form>
@@ -104,7 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </label>
                     <label>
                         <i class='bx bx-lock bx-tada bx-rotate-90'></i>
-                        <input type="password" name="password" placeholder="contraseña" required/>
+                        <input type="password" id="passwordLogin" name="password" placeholder="contraseña" required/>
+                        <i class='bx bx-hide password-toggle' <i id="togglePasswordLogin"></i>
                     </label>
                     <button type="submit" name="iniciar_sesion" value="iniciar sesion">iniciar sesion</button>
                 </form>
