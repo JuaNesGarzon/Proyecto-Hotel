@@ -21,16 +21,6 @@ if (isset($_SESSION['mensaje'])) {
 </head>
 <body>
     <h1>Bienvenido a Hotel Dejá Vu</h1>
-=======
-    <link href="./output.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/2ca8f52626.js" crossorigin="anonymous"></script>
-    <script src="./js/functionality.js" defer></script>
-    <title>Document</title>
-</head>
-<body class="bg-gray-100">
-    <h1>hola</h1>
->>>>>>> 5a2ad4d5968a72cf7be23927132fc845f9b5fb23
     
     <?php 
     if (isset($_SESSION['user_id'])) {
