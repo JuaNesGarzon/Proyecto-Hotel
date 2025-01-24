@@ -13,6 +13,7 @@ btnSingUp.addEventListener("click", e => {
     formRegister.classList.remove("hide");
 })
 
+// Funcionalidad para mostrar/ocultar contraseña
 document.addEventListener('DOMContentLoaded', () => {
     const togglePasswordElements = [
         { toggleId: 'togglePasswordRegister', inputId: 'passwordRegister' },
@@ -35,5 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function changeSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(changeSlide, 5000); // Cambia cada 5 segundos
 });
 

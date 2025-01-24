@@ -32,6 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </script>
     <?php endif; ?>
 
+    <div class="admin-button">
+        <a href="./formEmpleado.php">Ingreso administrativo</a>
+    </div>
+
+    <div class="background-slider">
+        <div class="slide"></div>
+    </div>
+
     <!-- formulario registro  -->
     <div class="container register">
         <div class="overlay" id="overlay">
@@ -73,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>
                         <i class='bx bx-lock bx-tada bx-rotate-90'></i>
                         <input type="password" id="passwordRegister" name="password" placeholder="contraseña" required/>
-                        <i class='bx bx-hide password-toggle' id="togglePasswordRegister"></i>
+                        <i class='bx bx-hide password-toggle bx-tada' id="togglePasswordRegister"></i>
                     </label>
                     <button type="submit" name="registrarse" value="registrarse">registrarse</button>
                 </form>
@@ -106,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>
                         <i class='bx bx-lock bx-tada bx-rotate-90'></i>
                         <input type="password" id="passwordLogin" name="password" placeholder="contraseña" required/>
-                        <i class='bx bx-hide password-toggle' <i id="togglePasswordLogin"></i>
+                        <i class='bx bx-hide password-toggle' id="togglePasswordLogin"></i>
                     </label>
                     <button type="submit" name="iniciar_sesion" value="iniciar sesion">iniciar sesion</button>
                 </form>

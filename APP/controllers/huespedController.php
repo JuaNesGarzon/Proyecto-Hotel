@@ -29,7 +29,7 @@ class HuespedController {
         $telefono = htmlspecialchars($datos['telefono']);
         $nacionalidad = htmlspecialchars($datos['nacionalidad']);
         $correo = filter_var($datos['correo'], FILTER_SANITIZE_EMAIL);
-        $contraseña = $encriptarDesencriptar->encrypt($datos['contraseña'], $this->clave);
+        $contraseña = $encriptarDesencriptar->encrypt($datos['password'], $this->clave);
 
         // consulta para insertar el usuario
 

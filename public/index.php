@@ -1,3 +1,15 @@
+<?php 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include __DIR__ . '/../APP/controllers/huespedController.php';
+
+// Mostrar mensaje si existe
+if (isset($_SESSION['mensaje'])) {
+    echo "<p>" . $_SESSION['mensaje'] . "</p>";
+    unset($_SESSION['mensaje']); // Limpiar el mensaje después de mostrarlo
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,8 +34,17 @@
 </head>
 
 <body class="min-h-screen">
+    
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50">
+    <header class="fixed top-0 left-0 right-0 z-50 absolute">
+<?php 
+    if (isset($_SESSION['user_id'])) {
+        echo "<p>Usuario logueado: " . $_SESSION['user_name'] . "</p>";
+        echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
+    } else {
+        echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
+    }
+    ?>
         <div class="container mx-auto px-4 flex items-center justify-between h-20">
             <a href="/" class="text-2xl font-serif text-white">
                 HOTEL DEJA VU

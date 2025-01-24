@@ -1,0 +1,162 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-slider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.slide {
+    background-image: url(../images/Diapositiva1.JPG); 
+    width: 100vw;         
+    height: 100vh;          
+    background-size: cover; 
+    background-position: center;
+    animation: animate 20s infinite;
+}
+@keyframes animate {
+    20%{
+        background-image: url(../images/Diapositiva2.JPG);
+        background-size: cover;
+    }
+    40%{
+        background-image: url(../images/Diapositiva3.JPG);
+        background-size: cover;
+    }
+    60%{
+        background-image: url(../images/Diapositiva4.JPG);
+        background-size: cover;
+    }
+    
+    80%{
+        background-image: url(../images/Diapositiva6.JPG);
+        background-size: cover;
+    }
+    100%{
+        background-image: url(../images/Diapositiva1.JPG);
+        background-size: cover;
+    }
+}
+
+.form-information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 30px 90px;
+    background-color: coral;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: solid thin black;
+    border-width: 3px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color 0.3s ease;
+}
+
+.input-group i:first-child {
+    left: 10px;
+}
+
+.input-group i.password-toggle {
+    right: 1px;
+    cursor: pointer;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    align-items: center;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    margin-right: 60px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #33423a;
+    box-shadow: 0 0 10px rgba(51, 66, 58, 0.3);
+}
+
+.password-toggle {
+    position: relative;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+button[name="iniciar_sesion"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    background-color: transparent;
+    margin: 20px 0;
+    border: solid 2px black;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[name="iniciar_sesion"]:hover {
+    color: white;
+    background-color: #33423a;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.back {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: coral;
+    color: black;
+    font-size: 1.5rem;
+    font-weight:bolder;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: solid 2px black;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 1);
+}
+
+.back a:hover {
+    background-color: #33423a;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+    border: none;
+}
