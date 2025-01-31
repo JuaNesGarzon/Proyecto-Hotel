@@ -3,12 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include __DIR__ . '/../APP/controllers/huespedController.php';
-
-// Mostrar mensaje si existe
-if (isset($_SESSION['mensaje'])) {
-    echo "<p>" . $_SESSION['mensaje'] . "</p>";
-    unset($_SESSION['mensaje']); // Limpiar el mensaje después de mostrarlo
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,13 +32,18 @@ if (isset($_SESSION['mensaje'])) {
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 absolute">
 <?php 
-    if (isset($_SESSION['user_id'])) {
-        echo "<p>Usuario logueado: " . $_SESSION['user_name'] . "</p>";
-        echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
-    } else {
-        echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
+    // if (isset($_SESSION['user_id'])) {
+    //     echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
+    // } else {
+    //     echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
+    // }
+    if (isset($_POST['cerrar_sesion'])) {
+        session_destroy();
+        header("Location: ../../APP/form/formulario.php");
+        exit();
     }
     ?>
+    <h1 class="text-center text-white">Bienvenido,  <?php echo $_SESSION['user_name']; ?></h1>
         <div class="container mx-auto px-4 flex items-center justify-between h-20">
             <a href="/" class="text-2xl font-serif text-white">
                 HOTEL DEJA VU
@@ -80,6 +79,10 @@ if (isset($_SESSION['mensaje'])) {
                     <a href="restaurante.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Restaurante</a>
                     <a href="spa.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Spa</a>
                     <a href="contacto.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Contacto</a>
+                    <form method="POST" class="space-y-4">
+                        <button type="submit" class="cerrar_sesion" id="cerrar_sesion">Cerrar sesión</button>
+                         <!-- <a href="logout.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Cerrar sesión</a> -->
+                    </form>
                 </nav>
             </div>
         </div>

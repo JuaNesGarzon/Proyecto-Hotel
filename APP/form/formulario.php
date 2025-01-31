@@ -60,7 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <label>
                         <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
-                        <input type="text" name="nombre" placeholder="nombre completo" required/>
+                        <input type="text" name="nombre" placeholder="nombre" required/>
+                    </label>
+                    <label>
+                        <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
+                        <input type="text" name="apellido" placeholder="apellido" required/>
                     </label>
                     <label>
                         <i class='bx bx-id-card bx-tada bx-rotate-90'></i>
@@ -68,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </label>
                     <label>
                         <i class='bx bx-phone bx-tada bx-rotate-90'></i>
-                        <input type="number" name="telefono" placeholder="telefono" required/>
+                        <input type="tel" name="telefono" placeholder="telefono" required/>
                     </label>
                     <label>
                         <i class='bx bxs-user bx-tada bx-flip-vertical'></i>

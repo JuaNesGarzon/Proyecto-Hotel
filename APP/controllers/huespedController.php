@@ -25,8 +25,9 @@ class HuespedController {
     public function registrarHuesped($datos) {
         $encriptarDesencriptar = new EncriptarDesencriptar();
         $nombre = htmlspecialchars($datos['nombre']);
+        $apellido = htmlspecialchars($datos['apellido']);
         $documento = intval($datos['documento']);
-        $telefono = htmlspecialchars($datos['telefono']);
+        $telefono = htmlspecialchars($datos['telefono']); 
         $nacionalidad = htmlspecialchars($datos['nacionalidad']);
         $correo = filter_var($datos['correo'], FILTER_SANITIZE_EMAIL);
         $contraseña = $encriptarDesencriptar->encrypt($datos['password'], $this->clave);
@@ -42,13 +43,13 @@ class HuespedController {
             if ($stmt->num_rows > 0) {                    
                 return "Ya existe un usuario con ese documento.";
             } else{
-                $sql = "INSERT INTO huespedes (nombre, documento, telefono, nacionalidad, correo, contraseña)
-                VALUES (?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO huespedes (nombre, apellido, documento, telefono, nacionalidad, correo, contraseña)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
                     
                 // Preparar sentencia
                 $stmt = $this->conexion->prepare($sql);
                 try{
-                    $stmt->bind_param("siisss", $nombre, $documento, $telefono, $nacionalidad, $correo, $contraseña);
+                    $stmt->bind_param("sssisss", $nombre, $apellido, $documento, $telefono, $nacionalidad, $correo, $contraseña);
                     // Ejecutar la consulta y verificar resultados
                     if ($stmt->execute()) {
                         return "Usuario registrado con éxito.";
@@ -66,8 +67,8 @@ class HuespedController {
 
     public function iniciarSesion($datos) {
         $encriptarDesencriptar = new EncriptarDesencriptar();
-        $correo = filter_var($datos['email'], FILTER_SANITIZE_EMAIL);
-        $password = $datos['password'];
+        $correo = trim(filter_var($datos['email'], FILTER_SANITIZE_EMAIL));
+        $password = trim($datos['password']);
 
         // consulta para buscar el usuario
         $sql = "SELECT id_huesped, nombre, contraseña FROM huespedes WHERE correo = ?";
@@ -87,7 +88,8 @@ class HuespedController {
             if($password == $password_db){
                 $_SESSION['user_id'] = $usuario['id_huesped'];
                 $_SESSION['user_name'] = $usuario['nombre'];
-                return "Inicio de sesión exitoso. Bienvenido, " . $usuario['nombre'] . "!";
+                header("Location: ../../public/index.php");
+                exit();
             } else {
                 return"La contraseña no es correcta";
             }
