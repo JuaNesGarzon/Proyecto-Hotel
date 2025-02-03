@@ -3,6 +3,12 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include __DIR__ . '/../APP/controllers/huespedController.php';
+
+$loggedIn = isset($_SESSION['user_id']) && isset($_SESSION['user_name']);
+if (!$loggedIn) {
+    header("Location: ../APP/form/formulario.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,11 +45,11 @@ include __DIR__ . '/../APP/controllers/huespedController.php';
     // }
     if (isset($_POST['cerrar_sesion'])) {
         session_destroy();
-        header("Location: ../../APP/form/formulario.php");
+        header("Location: ../APP/form/formulario.php");
         exit();
     }
     ?>
-    <h1 class="text-center text-white">Bienvenido,  <?php echo $_SESSION['user_name']; ?></h1>
+    <h1 class="text-center text-white">Bienvenido,  <?php echo $_SESSION['user_name'] ?></h1>
         <div class="container mx-auto px-4 flex items-center justify-between h-20">
             <a href="/" class="text-2xl font-serif text-white">
                 HOTEL DEJA VU
@@ -80,9 +86,9 @@ include __DIR__ . '/../APP/controllers/huespedController.php';
                     <a href="spa.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Spa</a>
                     <a href="contacto.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Contacto</a>
                     <form method="POST" class="space-y-4">
-                        <button type="submit" class="cerrar_sesion" id="cerrar_sesion">Cerrar sesión</button>
-                         <!-- <a href="logout.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Cerrar sesión</a> -->
+                        <button type="submit" name="cerrar_sesion" class="cerrar_sesion" id="cerrar_sesion">Cerrar sesión</button>
                     </form>
+                    <!-- <a href='logout.php' class="block py-2.5 text-gray-600 hover:text-gray-900">Cerrar sesión</a> -->
                 </nav>
             </div>
         </div>

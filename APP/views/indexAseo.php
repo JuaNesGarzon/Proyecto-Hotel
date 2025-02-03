@@ -22,6 +22,8 @@ if (isset($_POST['cerrar_sesion'])) {
 </head>
 <body>
 <h1 class="text-center">Bienvenido, aseador <?php echo $_SESSION['nombre']; ?></h1>
-<a href="../../logout.php">Cerrar sesión</a>
+<form method="POST">
+<button type="submit" class="cerrar_sesion" id="cerrar_sesion" name="cerrar_sesion">Cerrar sesión</button>
+</form>
 </body>
 </html>

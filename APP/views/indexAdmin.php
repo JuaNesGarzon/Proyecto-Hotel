@@ -7,7 +7,7 @@ if (!isset($_SESSION['id_empleado']) || $_SESSION['cargo'] != 1) {
 }
 
 // cierre de sesion 
-if (isset($_POST['cierre_sesion'])) {
+if (isset($_POST['cerrar_sesion'])) {
     session_destroy();
     header("Location: ../form/formEmpleado.php");
     exit();
@@ -23,6 +23,8 @@ if (isset($_POST['cierre_sesion'])) {
 <body>
 <h1 class="text-center">Bienvenido, administrador <?php echo $_SESSION['nombre']; ?></h1>
 
-<button class="cerrar_sesion" id="cerrar_sesion">Cerrar sesión</button>
+<form method="POST">
+<button type="submit" class="cerrar_sesion" id="cerrar_sesion" name="cerrar_sesion">Cerrar sesión</button>
+</form>
 </body>
 </html>
