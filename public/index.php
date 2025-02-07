@@ -31,26 +31,33 @@ if (!$loggedIn) {
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet">
+    <link rel="shortcout icon" href="../public/images/logo1.ico">
 </head>
 
 <body class="min-h-screen">
     
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 absolute">
+    <header class=" top-0 left-0 right-0 z-50 absolute">
 <?php 
-    // if (isset($_SESSION['user_id'])) {
-    //     echo "<p><a href='logout.php'>Cerrar sesión</a></p>";
-    // } else {
-    //     echo "<p><a href='../APP/form/formulario.php'>Ir al formulario de registro/inicio de sesión</a></p>";
-    // }
     if (isset($_POST['cerrar_sesion'])) {
         session_destroy();
         header("Location: ../APP/form/formulario.php");
         exit();
     }
     ?>
-    <h1 class="text-center text-white">Bienvenido,  <?php echo $_SESSION['user_name'] ?></h1>
-        <div class="container mx-auto px-4 flex items-center justify-between h-20">
+    <h1 class=" 
+    text-center text-white text-3xl font-extrabold
+    tracking-tight leading-none
+    py-3 px-4 max-w-[20%] sm:max-w-[40%]
+    bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
+    animate-text
+    border-b-[2px] border-white
+    rounded-full
+    mx-auto
+    position-sticky top-0 z-50
+">Bienvenido, <span class="italic"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Usuario'); ?></span>
+</h1>
+        <div class="container mx-auto px-4 flex items-center justify-between h-20 top-0">
             <a href="/" class="text-2xl font-serif text-white">
                 HOTEL DEJA VU
             </a>
@@ -86,7 +93,11 @@ if (!$loggedIn) {
                     <a href="spa.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Spa</a>
                     <a href="contacto.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Contacto</a>
                     <form method="POST" class="space-y-4">
-                        <button type="submit" name="cerrar_sesion" class="cerrar_sesion" id="cerrar_sesion">Cerrar sesión</button>
+                        <button type="submit" name="cerrar_sesion"
+                        class="cerrar_sesion flex items-center justify-center w-full px-4 py-2 text-sm font-medium mt-80 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" id="cerrar_sesion">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Cerrar sesión
+                        </button>
                     </form>
                     <!-- <a href='logout.php' class="block py-2.5 text-gray-600 hover:text-gray-900">Cerrar sesión</a> -->
                 </nav>
@@ -199,12 +210,12 @@ if (!$loggedIn) {
                 <!-- Images -->
                 <div class="relative">
                     <!-- Main Image (Bedroom) -->
-                    <div class="relative z-10 rounded-lg overflow-hidden shadow-xl">
-                        <img src="images/bedroom.jpg" alt="Habitación de lujo" class="w-full h-[600px] object-cover">
+                    <div class="relative z-5 rounded-lg overflow-hidden shadow-xl w-45">
+                        <img src="images/habitacion.jpg" alt="Habitación de lujo" class="w-full h-[600px] object-cover">
                     </div>
                     <!-- Overlapping Image (Bathroom) -->
                     <div class="absolute top-1/4 -left-1/4 w-2/3 rounded-lg overflow-hidden shadow-xl">
-                        <img src="images/bathroom.jpg" alt="Baño de lujo" class="w-full h-[400px] object-cover">
+                        <img src="images/baño.jpg" alt="Baño de lujo" class="w-full h-[400px] object-cover">
                     </div>
                 </div>
             </div>
@@ -242,7 +253,7 @@ if (!$loggedIn) {
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                 <!-- Junior Suite Card -->
                 <div class="group relative rounded-xl overflow-hidden">
-                    <img src="images/junior-suite.jpg" alt="Junior Suite"
+                    <img src="images/junior_suite.jpg" alt="Junior Suite"
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -256,7 +267,7 @@ if (!$loggedIn) {
 
                 <!-- Deluxe Room Card -->
                 <div class="group relative rounded-xl overflow-hidden">
-                    <img src="images/deluxe-room.jpg" alt="Deluxe Room"
+                    <img src="images/deluxe_room.jpg" alt="Deluxe Room"
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -270,7 +281,7 @@ if (!$loggedIn) {
 
                 <!-- Superior Room Card -->
                 <div class="group relative rounded-xl overflow-hidden">
-                    <img src="images/superior-room.jpg" alt="Superior Room"
+                    <img src="images/superior_room.jpg" alt="Superior Room"
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">

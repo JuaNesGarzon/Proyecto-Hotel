@@ -103,9 +103,9 @@ h1 {
     align-items: center;
     border: none;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
-    margin-right: 60px;
+    margin-right: 80px;
 }
 
 .input-group input:focus {
@@ -125,7 +125,7 @@ h1 {
 button[name="iniciar_sesion"] {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: black;
     background-color: transparent;

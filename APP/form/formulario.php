@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="style_registro.css">
+    <link rel="shortcout icon" href="../../public/images/logo1.ico">
     <title>login_register</title>
 </head>
 <body>
@@ -52,11 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-information">
             <div class="form-information-child">
                 <h2>crear una cuenta</h2>
-                <div class="icon">
-                    <i class='bx bxl-gmail bx-tada'></i>
-                    <i class='bx bxl-facebook bx-flip-vertical bx-tada'></i>
-                    <i class='bx bxl-instagram bx-tada bx-flip-vertical'></i>
-                </div>
                 <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <label>
                         <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
@@ -84,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </label>
                     <label>
                         <i class='bx bx-lock bx-tada bx-rotate-90'></i>
-                        <input type="password" id="passwordRegister" name="password" placeholder="contraseña" required/>
+                        <span>crea una contraseña</span>
+                        <input type="password" id="passwordRegister" name="password" placeholder="contraseña" maxlength="10" required/>
                         <i class='bx bx-hide password-toggle bx-tada' id="togglePasswordRegister"></i>
                     </label>
                     <button type="submit" name="registrarse" value="registrarse">registrarse</button>

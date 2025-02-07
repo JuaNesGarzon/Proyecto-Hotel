@@ -30,6 +30,10 @@ class HuespedController {
         $telefono = htmlspecialchars($datos['telefono']); 
         $nacionalidad = htmlspecialchars($datos['nacionalidad']);
         $correo = filter_var($datos['correo'], FILTER_SANITIZE_EMAIL);
+
+        if(strlen($datos['password']) > 10){
+            return "La contraseña debe tener menos de 10 caracteres.";
+        }
         $contraseña = $encriptarDesencriptar->encrypt($datos['password'], $this->clave);
 
         // consulta para insertar el usuario

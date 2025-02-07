@@ -38,16 +38,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
+// para empleados 
+document.addEventListener("DOMContentLoaded", () => {
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("passwordInput");
 
-    function changeSlide() {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener("click", function () {
+            // Cambiar el tipo de input entre password y text
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                this.classList.remove("bx-hide");
+                this.classList.add("bx-show");
+            } else {
+                passwordInput.type = "password";
+                this.classList.remove("bx-show");
+                this.classList.add("bx-hide");
+            }
+        });
+    } else {
+        console.error("No se encontraron los elementos necesarios.");
     }
-
-    setInterval(changeSlide, 5000); // Cambia cada 5 segundos
 });
-

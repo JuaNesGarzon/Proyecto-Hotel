@@ -75,6 +75,7 @@ mysqli_close($conexion);
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../public/css/empleados.css">
+    <link rel="shortcout icon" href="../../public/images/logo1.ico">
     <title>Inicio sesión empleados</title>
 </head>
 <body>
@@ -91,8 +92,8 @@ mysqli_close($conexion);
         </div>
         <div class="input-group">
             <i class='bx bx-lock'></i>
-            <input type="password" id="passwordLogin" name="contraseña" placeholder="Contraseña" required/>
-            <i class='bx bx-hide password-toggle' id="togglePasswordLogin"></i>
+            <input type="password" id="passwordInput" name="contraseña" placeholder="Contraseña" required />
+            <i class='bx bx-hide password-toggle' id="togglePassword" style="cursor: pointer;"></i>
         </div>
         <button type="submit" name="iniciar_sesion" value="iniciar sesion">Iniciar Sesión</button>
     </form>
@@ -103,6 +104,6 @@ mysqli_close($conexion);
         <a href="./formulario.php">Volver</a>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="../../public/js/script1.js"></script>
 </body>
 </html>

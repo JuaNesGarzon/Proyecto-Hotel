@@ -78,7 +78,7 @@ width: 100%;
 padding: 0 30px;
 }
 .sign-in h2 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
 }
 .sign-in p {
     margin: 15px;
@@ -91,9 +91,10 @@ padding: 0 30px;
     border: solid 2px black;
     border-radius: 20px;
     padding: 10px 20px;
-    color: black;
+    color: white;
     cursor: pointer;
     transition: background-color .4s ease;
+    font-size: 1.2rem;
 }
 
 .sign-in button:hover {
@@ -112,12 +113,39 @@ padding: 0 30px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+.login .form-information-child {
+    font-size: 1.2rem;
+}
+
+.login .form-information-child h2 {
+    font-size: 3rem;
+}
+
+.login .icon i {
+    font-size: 2rem;
+    padding: 15px;
+}
+
+.login #sign-up-form label {
+    font-size: 1.2rem;
+    padding: 15px;
+}
+
+.login #sign-up-form label input {
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+.login button[name="iniciar_sesion"] {
+    font-size: 1.2rem;
+    padding: 15px;
+}
 .form-information-child {
     padding: 0 30px;
 }
 .form-information-child h2 {
     color: #333;
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 .form-information-child p {
     color: #555;
@@ -134,6 +162,7 @@ padding: 0 30px;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
     border: solid thin black;
+    font-size: 1.5rem;
 }
 .icon i:hover {
     background-color: #33423a;
@@ -142,6 +171,7 @@ padding: 0 30px;
 #sign-up-form {
     margin: 30px 0 0 0;
     padding: auto;
+    font-size: 1.2rem;
 }
 #sign-up-form label {
     display: flex;
@@ -160,6 +190,7 @@ padding: 0 30px;
     outline: none;
     border-radius: 20px;
     color: #333;
+    font-size: 1.2rem;
 }
 #sign-up-form button {
     background-color: transparent;
@@ -171,6 +202,7 @@ padding: 0 30px;
     color: black;
     cursor: pointer;
     transition: background-color .4s ease;
+    font-size: 1rem;
 }
 #sign-up-form button:hover {
     background-color: #33423a;
