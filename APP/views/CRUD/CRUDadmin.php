@@ -158,7 +158,6 @@ $resultado = mysqli_query($conexion, $sql);
         }
     });
 });
-
     </script>
 </body>
 </html>

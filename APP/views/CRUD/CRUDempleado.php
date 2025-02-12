@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 require "../../config/conexion.php";
-include __DIR__ . '../../../controllers/huespedController.php';
+include("../../models/deleteEmpleado.php");
 
 $loggedIn = !empty($_SESSION['user_id']) && !empty($_SESSION['user_name']);
 
@@ -14,7 +14,9 @@ nombre LIKE '%$busqueda%' OR
 apellido LIKE '%$busqueda%' OR 
 documento LIKE '%$busqueda%' OR
 telefono LIKE '%$busqueda%' OR 
-correo LIKE '%$busqueda%'";
+correo LIKE '%$busqueda%'OR
+horario LIKE '%$busqueda%' OR
+cargo LIKE '%$busqueda%'";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
@@ -32,9 +34,6 @@ $resultado = mysqli_query($conexion, $sql);
         <div class="container">
             <div class="logo">
                 <a href="../indexAdmin.php">inicio</a>
-                <?php if ($loggedIn): ?>
-                    <span class="ml-2"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
-                <?php endif; ?>
             </div>
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
@@ -51,6 +50,13 @@ $resultado = mysqli_query($conexion, $sql);
             </span>
         </div>
     </nav>
+
+    <script>
+    function eliminar() {
+      let respuesta = confirm("¿Estás seguro de eliminar?");
+      return respuesta;
+    }
+  </script>
 
     
     <section class="home pt-40 pb-10 min-h-screen flex flex-col text-xl">
@@ -96,8 +102,8 @@ $resultado = mysqli_query($conexion, $sql);
                             <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['horario']); ?></td>
                             <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['cargo']); ?></td>
                             <td class="py-4 px-6">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Editempleado.php?id_huesped=<?= $row['id_empleado'] ?>">Editar</a></button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300">Eliminar</button>
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Editempleado.php?id_empleado=<?= $row['id_empleado'] ?>">Editar</a></button>
+                                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"><a onclick="return eliminar()" href="CRUDempleado.php?id_empleado=<?= $row['id_empleado'] ?>">Eliminar</a></button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -122,6 +128,7 @@ $resultado = mysqli_query($conexion, $sql);
             }
         });
 
+        // Search functionality
         document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const userTableBody = document.getElementById('userTableBody');
