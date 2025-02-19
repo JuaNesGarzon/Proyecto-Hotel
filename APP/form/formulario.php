@@ -117,6 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="password" id="passwordLogin" name="password" placeholder="contraseña" required/>
                         <i class='bx bx-hide password-toggle' id="togglePasswordLogin"></i>
                     </label>
+                    <a href="restablecer.php">Olvide mi contraseña</a>
                     <button type="submit" name="iniciar_sesion" value="iniciar sesion">iniciar sesion</button>
                 </form>
             </div>

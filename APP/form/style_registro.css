@@ -9,7 +9,6 @@ body {
     align-items: center;
     justify-content: center;
     height: 90vh;
-    /* background-image: url(../../public/images/Diapositiva1.JPG); */
     background-size: cover;
 }
 .background-slider {
@@ -61,6 +60,9 @@ body {
     transition: all 0.5s ease;
     margin: 200px;
     border: solid thin black;
+}
+.container-register {
+    margin-top: 200px;
 }
 /*cambiar color*/
 .overlay {
@@ -117,6 +119,11 @@ padding: 0 30px;
     font-size: 1.2rem;
 }
 
+.form-information-child a {
+    text-decoration: none;
+    margin-right: 210px;
+}
+
 .login .form-information-child h2 {
     font-size: 3rem;
 }
@@ -139,9 +146,11 @@ padding: 0 30px;
 .login button[name="iniciar_sesion"] {
     font-size: 1.2rem;
     padding: 15px;
+    margin: 80px;
 }
 .form-information-child {
     padding: 0 30px;
+    margin-top: 20px;
 }
 .form-information-child h2 {
     color: #333;
