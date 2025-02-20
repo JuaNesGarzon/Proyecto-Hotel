@@ -101,6 +101,86 @@ class HuespedController {
             return "No se encontró un usuario con ese correo.";
         }
     }
+
+    public function checkEmailExists($email) {
+        $sql = "SELECT id_huesped FROM huespedes WHERE correo = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
+    
+    public function storeResetToken($email, $token, $expiryTime) {
+        $sql = "INSERT INTO reset_tokens (email, token, expiry_time) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE token = ?, expiry_time = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("sssss", $email, $token, $expiryTime, $token, $expiryTime);
+        return $stmt->execute();
+    }
+    
+    public function verifyResetToken($token) {
+        $sql = "SELECT email FROM reset_tokens WHERE token = ? AND expiry_time > NOW()";
+        $stmt = $this->conexion->prepare($sql);
+        if (!$stmt) {
+            error_log("Error en la preparación de la consulta: " . $this->conexion->error);
+            return false;
+        }
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $isValid = $result->num_rows > 0;
+        if (!$isValid) {
+            error_log("Token no válido o expirado: " . $token);
+        }
+        return $isValid;
+    }
+    
+    public function updatePassword($token, $password) {
+        // Primero, verificamos si el token es válido
+        if (!$this->verifyResetToken($token)) {
+            error_log("Token inválido o expirado: " . $token);
+            return false;
+        }
+    
+        $sql = "SELECT email FROM reset_tokens WHERE token = ? AND expiry_time > NOW()";
+        $stmt = $this->conexion->prepare($sql);
+        if (!$stmt) {
+            error_log("Error en la preparación de la consulta: " . $this->conexion->error);
+            return false;
+        }
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows === 0) {
+            error_log("No se encontró un token válido");
+            return false;
+        }
+        $row = $result->fetch_assoc();
+        $email = $row['email'];
+    
+        $encriptarDesencriptar = new EncriptarDesencriptar();
+        $encryptedPassword = $encriptarDesencriptar->encrypt($password, $this->clave);
+    
+        $updateSql = "UPDATE huespedes SET contraseña = ? WHERE correo = ?";
+        $updateStmt = $this->conexion->prepare($updateSql);
+        if (!$updateStmt) {
+            error_log("Error en la preparación de la consulta de actualización: " . $this->conexion->error);
+            return false;
+        }
+        $updateStmt->bind_param("ss", $encryptedPassword, $email);
+        $success = $updateStmt->execute();
+    
+        if ($success) {
+            $deleteSql = "DELETE FROM reset_tokens WHERE email = ?";
+            $deleteStmt = $this->conexion->prepare($deleteSql);
+            $deleteStmt->bind_param("s", $email);
+            $deleteStmt->execute();
+        } else {
+            error_log("Error al actualizar la contraseña: " . $updateStmt->error);
+        }
+    
+        return $success;
+    }
 }
 
 $huespedController = new HuespedController();

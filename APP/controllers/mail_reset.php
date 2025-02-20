@@ -17,7 +17,7 @@ $mensaje = '
   <h1>Hotel deja vu</h1>
   <p>Restablecer contraseña</p>
   <p>Tu código es: <b>' . $codigo . '</b></p>
-  <p></a href="http://localhost/hotel-Dej%C3%A1%20vu/APP/form/restablecer.php?email= '.$email.'&token= '.$token.'">Verifica tu correo electrónico</a></p>
+  <p><a href="http://localhost/hotel-Dej%C3%A1%20vu/APP/form/restablecer.php?email=' . urlencode($email) . '&token=' . urlencode($token) . '">Verifica tu correo electrónico</a></p>
   <p>Si no has solicitado esto, ignora este correo.</p>
 </body>
 </html>
@@ -35,9 +35,9 @@ $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 // Enviarlo
 
-$enviado = false;
-if (mail($para, $título, $mensaje, $cabeceras)) {
-    $enviado = true;
+$enviado = mail($para, $título, $mensaje, $cabeceras);
+
+if (!$enviado) {
+    die('Error: No se pudo enviar el correo.');
 }
-mail($para, $título, $mensaje, $cabeceras);
 ?>

@@ -26,6 +26,7 @@ $resultado = mysqli_query($conexion, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/CRUDadmin.css">
+    <link rel="shortcout icon" href="../../../public/images/logo1.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>CRUD admin</title>
 </head>

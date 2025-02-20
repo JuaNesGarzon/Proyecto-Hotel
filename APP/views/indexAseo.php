@@ -96,7 +96,7 @@ if (isset($_POST['cerrar_sesion'])) {
                     <button class="text-white hover:text-green-400 transition duration-300">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
-                    <div class="absolute left-0 mt-2 w-48 bg-gray-700 rounded-md overflow-hidden shadow-xl z-10 hidden group-hover:block">
+                    <div class="static left-0 mt-2 w-48 bg-gray-700 rounded-md overflow-hidden shadow-xl z-10 hidden group-hover:block">
                         <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600">Reportes de Mantenimiento</a>
                     </div>
                 </div>

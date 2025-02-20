@@ -34,6 +34,7 @@ if (isset($_POST['cerrar_sesion'])) {
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../../public/images/logo1.ico">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcout icon" href="../../public/images/logo1.ico">
     <style>
         .sidebar-hover:hover .sidebar-content {
             width: 16rem;
