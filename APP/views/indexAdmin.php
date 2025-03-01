@@ -76,7 +76,7 @@ if (isset($_POST['cerrar_sesion'])) {
                             </a>
                         </li>
                         <li class="px-4">
-                            <a href="#" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
+                            <a href="informes.php" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
                                 <span class="sidebar-icon-only">
                                     <i class='bx bx-line-chart w-8 h-6 text-1xl scale-150'></i>
                                 </span>

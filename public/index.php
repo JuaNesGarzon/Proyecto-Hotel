@@ -258,8 +258,8 @@ if (!$loggedIn) {
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <p class="text-sm mb-2">FROM $250/NIGHT</p>
-                        <h3 class="text-2xl font-serif">Junior Suite</h3>
+                        <p class="text-sm mb-2">DESDE $90 LA NOCHE</p>
+                        <h3 class="text-2xl font-serif">Habitacion estandar</h3>
                     </div>
                     <a href="rooms.php?type=junior-suite" class="absolute inset-0" aria-label="Ver Junior Suite">
                         <span class="sr-only">Ver detalles de Junior Suite</span>
@@ -272,8 +272,8 @@ if (!$loggedIn) {
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <p class="text-sm mb-2">FROM $190/NIGHT</p>
-                        <h3 class="text-2xl font-serif">Deluxe Room</h3>
+                        <p class="text-sm mb-2">DESDE $120 LA NOCHE</p>
+                        <h3 class="text-2xl font-serif">Habitacion de lujo</h3>
                     </div>
                     <a href="rooms.php?type=deluxe-room" class="absolute inset-0" aria-label="Ver Deluxe Room">
                         <span class="sr-only">Ver detalles de Deluxe Room</span>
@@ -286,8 +286,8 @@ if (!$loggedIn) {
                         class="w-full aspect-[4/3] object-cover transition duration-300 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <p class="text-sm mb-2">FROM $240/NIGHT</p>
-                        <h3 class="text-2xl font-serif">Superior Room</h3>
+                        <p class="text-sm mb-2">DESDE $200 LA NOCHE</p>
+                        <h3 class="text-2xl font-serif">Habitacion superior</h3>
                     </div>
                     <a href="rooms.php?type=superior-room" class="absolute inset-0" aria-label="Ver Superior Room">
                         <span class="sr-only">Ver detalles de Superior Room</span>
@@ -297,9 +297,9 @@ if (!$loggedIn) {
 
             <!-- View All Button -->
             <div class="flex justify-end">
-                <a href="rooms.php"
+                <a href="habitaciones.php"
                     class="inline-flex items-center px-6 py-3 border border-neutral-300 rounded-full hover:bg-neutral-100 transition duration-200">
-                    View all Rooms
+                    mirar todas las habitaciones
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

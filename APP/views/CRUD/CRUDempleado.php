@@ -40,7 +40,7 @@ $resultado = mysqli_query($conexion, $sql);
                 <ul class="navlinks">
                     <li><a href="./CRUDadmin.php">huespedes</a></li>
                     <li><a href="#">reservas</a></li>
-                    <li><a href="#">habitaciones</a></li>
+                    <li><a href="CRUDhabitacion.php">habitaciones</a></li>
                     <li><a href="#">servicios</a></li>
                 </ul>
             </div>

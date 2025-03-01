@@ -71,6 +71,13 @@ if (isset($_POST['cerrar_sesion'])) {
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(120deg, #1a5c3a 0%, #2c8c5e 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .todo-container {
             background-color: rgba(30, 41, 59, 0.9);
@@ -96,8 +103,10 @@ if (isset($_POST['cerrar_sesion'])) {
                     <button class="text-white hover:text-green-400 transition duration-300">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
-                    <div class="static left-0 mt-2 w-48 bg-gray-700 rounded-md overflow-hidden shadow-xl z-10 hidden group-hover:block">
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600">Reportes de Mantenimiento</a>
+                    <div class="relative left-0 mt-2 w-48 bg-gray-700 rounded-md overflow-hidden shadow-xl z-10 hidden group-hover:block">
+                        <a href="../form/formulario_mantenimiento.php" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600">
+                            <i class="fas fa-tools mr-2"></i>Reportes de Mantenimiento
+                        </a>
                     </div>
                 </div>
                 <h1 class="text-3xl font-bold text-white">Panel de Aseo</h1>

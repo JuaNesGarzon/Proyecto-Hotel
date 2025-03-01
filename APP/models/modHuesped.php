@@ -1,7 +1,9 @@
 <?php
+include __DIR__ . '/../controllers/encriptar_desencriptar.php';
+include __DIR__ . '/../config/conexion.php';
 
 if (!empty($_POST['enviar'])) {
-    if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['documento']) && !empty($_POST['telefono']) && !empty($_POST['nacionalidad']) && !empty($_POST['correo']) && !empty($_POST['password'])) {
+    if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['documento']) && !empty($_POST['telefono']) && !empty($_POST['nacionalidad']) && !empty($_POST['correo'])) {
         $id_huesped = $_POST['id_huesped'];
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
@@ -9,16 +11,39 @@ if (!empty($_POST['enviar'])) {
         $telefono = $_POST['telefono'];
         $nacionalidad = $_POST['nacionalidad'];
         $correo = $_POST['correo'];
-        $password = ($_POST['password']);
 
-        $sql = $conexion->query("UPDATE huespedes SET nombre='$nombre', apellido='$apellido', documento='$documento', telefono='$telefono', nacionalidad='$nacionalidad', correo='$correo', contraseña='$password' WHERE id_huesped='$id_huesped'");
-        if ($sql == 1) {
-            echo '<div id="successMessage" class="fixed top-0 left-0 right-0 bg-green-500 text-white p-4 text-center transform -translate-y-full transition-transform duration-500 ease-in-out">Modificación exitosa</div>';
+        $encriptarDesencriptar = new EncriptarDesencriptar();
+        $clave = "d3j4vu_H0t3l"; // Asegúrate de que esta clave sea la misma que se usa para encriptar al registrar
+
+        $sql = "UPDATE huespedes SET nombre=?, apellido=?, documento=?, telefono=?, nacionalidad=?, correo=?";
+        $params = [$nombre, $apellido, $documento, $telefono, $nacionalidad, $correo];
+        $types = "ssssss";
+
+        if (!empty($_POST['password'])) {
+            $password = $encriptarDesencriptar->encrypt($_POST['password'], $clave);
+            $sql .= ", contraseña=?";
+            $params[] = $password;
+            $types .= "s";
+        }
+
+        $sql .= " WHERE id_huesped=?";
+        $params[] = $id_huesped;
+        $types .= "i";
+
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param($types, ...$params);
+
+        if ($stmt->execute()) {
+            header("Location: ../form/Edithuesped.php?id_huesped=$id_huesped&success=1");
+            exit();
         } else {
-            echo '<div class="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 text-center">Error al modificar: ' . $sql->error . '</div>';
+            header("Location: ../form/Edithuesped.php?id_huesped=$id_huesped&error=" . urlencode($stmt->error));
+            exit();
+        }
+        $stmt->close();
+    } else {
+        header("Location: ../form/Edithuesped.php?id_huesped=$id_huesped&error=campos_vacios");
+        exit();
     }
-  } else {
-    echo '<div class="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 text-center">Todos los campos son obligatorios</div>';
-  }
 }
 ?>

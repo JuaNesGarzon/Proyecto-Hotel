@@ -1,4 +1,5 @@
 <?php 
+include '../controllers/encriptar_desencriptar.php';
 include __DIR__ . '../../config/conexion.php';
 
 $mensaje = '';
@@ -20,8 +21,11 @@ if (isset($_POST['enviar']))
         $telefono = mysqli_real_escape_string($conexion, $_POST['telefono']);
         $nacionalidad = mysqli_real_escape_string($conexion, $_POST['nacionalidad']);
         $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
-        
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $encriptarDesencriptar = new EncriptarDesencriptar();
+        $clave = "d3j4vu_H0t3l";
+
+        $password = $encriptarDesencriptar->encrypt($_POST['password'], $clave);
 
         $sql = "INSERT INTO huespedes (nombre, apellido, documento, telefono, nacionalidad, correo, contraseña)
                 VALUES (?, ?, ?, ?, ?, ?, ?)";

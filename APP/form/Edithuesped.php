@@ -3,7 +3,11 @@ include __DIR__ . '../../config/conexion.php';
 
 $id_huesped = $_GET['id_huesped'];
 
-$sql = $conexion->query("SELECT * FROM huespedes WHERE id_huesped='$id_huesped'");
+$sql = $conexion->prepare("SELECT * FROM huespedes WHERE id_huesped=?");
+$sql->bind_param("i", $id_huesped);
+$sql->execute();
+$result = $sql->get_result();
+$huesped = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,16 +25,22 @@ $sql = $conexion->query("SELECT * FROM huespedes WHERE id_huesped='$id_huesped'"
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-5">
+    <?php
+    if (isset($_GET['success'])) {
+        echo '<div id="successMessage" class="fixed top-0 left-0 right-0 bg-green-500 text-white p-4 text-center transform -translate-y-full transition-transform duration-500 ease-in-out">Modificación exitosa</div>';
+    }
+    if (isset($_GET['error'])) {
+        $error = $_GET['error'] == 'campos_vacios' ? 'Todos los campos son obligatorios excepto la contraseña' : $_GET['error'];
+        echo '<div id="errorMessage" class="fixed top-0 left-0 right-0 bg-red-500 text-white p-4 text-center transform -translate-y-full transition-transform duration-500 ease-in-out">' . htmlspecialchars($error) . '</div>';
+    }
+    ?>
     <div class="w-full max-w-md">
         <a href="javascript:history.back()" class="mb-4 inline-flex items-center text-white hover:text-gray-200 transition-colors">
             <i class='bx bx-left-arrow-alt text-2xl mr-2'></i> Volver
         </a>
-        <form method="POST" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
+        <form method="POST" action="../models/modHuesped.php" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
             <h3 class="text-3xl font-bold text-white mb-6 text-center">Editar huésped</h3>
             <input type="hidden" name="id_huesped" value="<?= $id_huesped ?>">
-            <?php 
-            include("../models/modHuesped.php");
-            while($huesped = $sql->fetch_assoc()) { ?>
             <div class="space-y-4">
                 <div>
                     <label for="nombre" class="block text-gray-200 mb-1">Nombre:</label>
@@ -68,20 +78,27 @@ $sql = $conexion->query("SELECT * FROM huespedes WHERE id_huesped='$id_huesped'"
             </button>
         </form>
     </div>
-    <?php }
-      ?>
-    <script src="../../public/js/script1.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const successMessage = document.getElementById('successMessage');
-            if (successMessage) {
+            const errorMessage = document.getElementById('errorMessage');
+            if (successMessage || errorMessage) {
+                const message = successMessage || errorMessage;
                 setTimeout(() => {
-                    successMessage.style.transform = 'translateY(0)';
+                    message.style.transform = 'translateY(0)';
                 }, 100);
                 setTimeout(() => {
-                    successMessage.style.transform = 'translateY(-100%)';
+                    message.style.transform = 'translateY(-100%)';
                 }, 5000);
             }
+
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('passwordInput');
+            togglePassword.addEventListener('click', function (e) {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.classList.toggle('bx-show');
+            });
         });
     </script>
 </body>

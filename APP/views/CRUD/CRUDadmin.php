@@ -99,7 +99,7 @@ $resultado = mysqli_query($conexion, $sql);
                             <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['nacionalidad']); ?></td>
                             <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['correo']); ?></td>
                             <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['contraseña']); ?></td>
-                            <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['rol'] ?? 'N/A'); ?></td>
+                            <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['tipo_huesped'] ?? '1'); ?></td>
                             <td class="py-4 px-6">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Edithuesped.php?id_huesped=<?= $row['id_huesped'] ?>">Editar</a></button>
                                 <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"><a onclick="return eliminar()" href="CRUDadmin.php?id_huesped=<?= $row['id_huesped'] ?>">Eliminar</a></button>
