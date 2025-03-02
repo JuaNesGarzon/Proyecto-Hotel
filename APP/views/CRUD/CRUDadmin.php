@@ -39,7 +39,6 @@ $resultado = mysqli_query($conexion, $sql);
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
                     <li><a href="./CRUDempleado.php">empleados</a></li>
-                    <li><a href="./CRUDreserva.php">reservas</a></li>
                     <li><a href="./CRUDhabitacion.php">habitaciones</a></li>
                     <li><a href="./CRUDservicio.php">servicios</a></li>
                 </ul>

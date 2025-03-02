@@ -1,5 +1,27 @@
 <?php
 include __DIR__ . '/../config/conexion.php';
+
+// Verificar si se ha proporcionado un ID de habitación
+if (!isset($_GET['id_habitacion'])) {
+    header("Location: ../views/admin/CRUDhabitacion.php");
+    exit();
+}
+
+$id_habitacion = $_GET['id_habitacion'];
+
+// Obtener los datos de la habitación
+$sql = "SELECT * FROM habitaciones WHERE id_habitacion = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $id_habitacion);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+if ($resultado->num_rows === 0) {
+    header("Location: ../views/admin/CRUDhabitacion.php");
+    exit();
+}
+
+$habitacion = $resultado->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,7 +30,7 @@ include __DIR__ . '/../config/conexion.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Agregar Habitación</title>
+    <title>Editar Habitación</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body {
@@ -18,7 +40,6 @@ include __DIR__ . '/../config/conexion.php';
             max-width: 100%;
             max-height: 200px;
             margin-top: 10px;
-            display: none;
         }
     </style>
 </head>
@@ -27,12 +48,12 @@ include __DIR__ . '/../config/conexion.php';
         <a href="javascript:history.back()" class="mb-4 inline-flex items-center text-white hover:text-gray-200 transition-colors">
             <i class='bx bx-left-arrow-alt text-2xl mr-2'></i> Volver
         </a>
-        <form method="POST" action="../../../models/addHabitacion.php" enctype="multipart/form-data" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
-            <h3 class="text-3xl font-bold text-white mb-6 text-center">Agregar habitación</h3>
+        <form method="POST" action="../models/updateHabitacion.php" enctype="multipart/form-data" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
+            <h3 class="text-3xl font-bold text-white mb-6 text-center">Editar habitación</h3>
             
             <?php if(isset($_GET['success'])): ?>
             <div class="bg-green-500 bg-opacity-80 text-white p-3 rounded-lg mb-4">
-                Habitación agregada correctamente.
+                Habitación actualizada correctamente.
             </div>
             <?php endif; ?>
             
@@ -42,49 +63,58 @@ include __DIR__ . '/../config/conexion.php';
             </div>
             <?php endif; ?>
             
+            <input type="hidden" name="id_habitacion" value="<?php echo htmlspecialchars($habitacion['id_habitacion']); ?>">
+            
             <div class="space-y-4">
                 <div>
                     <label for="numero_habitacion" class="block text-gray-200 mb-1">Número de habitación:</label>
-                    <input type="number" name="numero_habitacion" id="numero_habitacion" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+                    <input type="number" name="numero_habitacion" id="numero_habitacion" value="<?php echo htmlspecialchars($habitacion['numero_habitacion']); ?>" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
                 </div>
                 <div>
                     <label for="tipo" class="block text-gray-200 mb-1">Tipo:</label>
                     <select name="tipo" id="tipo" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
-                        <option class ="bg-black" value="individual">Individual</option>
-                        <option class ="bg-black" value="doble">Doble</option>
-                        <option class ="bg-black" value="suite">Suite</option>
-                        <option class ="bg-black"value="familiar">Familiar</option>
+                        <option class="bg-black" value="individual" <?php echo $habitacion['tipo'] === 'individual' ? 'selected' : ''; ?>>Individual</option>
+                        <option class="bg-black" value="doble" <?php echo $habitacion['tipo'] === 'doble' ? 'selected' : ''; ?>>Doble</option>
+                        <option class="bg-black" value="suite" <?php echo $habitacion['tipo'] === 'suite' ? 'selected' : ''; ?>>Suite</option>
+                        <option class="bg-black" value="familiar" <?php echo $habitacion['tipo'] === 'familiar' ? 'selected' : ''; ?>>Familiar</option>
                     </select>
                 </div>
                 <div>
                     <label for="precio" class="block text-gray-200 mb-1">Precio:</label>
-                    <input type="number" step="0.01" name="precio" id="precio" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+                    <input type="number" step="0.01" name="precio" id="precio" value="<?php echo htmlspecialchars($habitacion['precio']); ?>" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
                 </div>
                 <div>
                     <label for="estado" class="block text-gray-200 mb-1">Estado:</label>
                     <select name="estado" id="estado" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
-                        <option class ="bg-black" value="disponible">Disponible</option>
-                        <option class ="bg-black" value="ocupada">Ocupada</option>
-                        <option class ="bg-black" value="mantenimiento">Mantenimiento</option>
+                        <option class="bg-black" value="disponible" <?php echo $habitacion['estado'] === 'disponible' ? 'selected' : ''; ?>>Disponible</option>
+                        <option class="bg-black" value="ocupada" <?php echo $habitacion['estado'] === 'ocupada' ? 'selected' : ''; ?>>Ocupada</option>
+                        <option class="bg-black" value="mantenimiento" <?php echo $habitacion['estado'] === 'mantenimiento' ? 'selected' : ''; ?>>Mantenimiento</option>
                     </select>
                 </div>
                 <div>
                     <label for="numero_personas" class="block text-gray-200 mb-1">Capacidad:</label>
-                    <input type="number" name="numero_personas" id="numero_personas" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+                    <input type="number" name="numero_personas" id="numero_personas" value="<?php echo htmlspecialchars($habitacion['numero_personas']); ?>" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
                 </div>
                 <div>
                     <label for="descripcion" class="block text-gray-200 mb-1">Descripción:</label>
-                    <textarea name="descripcion" id="descripcion" rows="3" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required></textarea>
+                    <textarea name="descripcion" id="descripcion" rows="3" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" required><?php echo htmlspecialchars($habitacion['descripcion']); ?></textarea>
                 </div>
                 <div>
                     <label for="imagen" class="block text-gray-200 mb-1">Imagen:</label>
+                    <?php if(!empty($habitacion['imagen_path'])): ?>
+                        <div class="mb-2">
+                            <p class="text-gray-200 mb-1">Imagen actual:</p>
+                            <img src="<?php echo htmlspecialchars('../../../' . $habitacion['imagen_path']); ?>" alt="Imagen actual" class="w-full max-h-40 object-cover rounded">
+                        </div>
+                    <?php endif; ?>
                     <input type="file" name="imagen" id="imagen" class="w-full px-4 py-2 rounded-lg bg-blue-100 bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" accept="image/*" onchange="previewImage(this)">
-                    <img id="image-preview" src="#" alt="Vista previa de la imagen" />
+                    <p class="text-sm text-gray-200 mt-1">Deja este campo vacío si no quieres cambiar la imagen.</p>
+                    <img id="image-preview" src="#" alt="Vista previa de la imagen" style="display: none;" />
                 </div>
             </div>
 
             <button type="submit" name="enviar" value="ok" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-6 transition-colors flex items-center justify-center">
-                <i class='bx bx-plus mr-2'></i> Agregar Habitación
+                <i class='bx bx-save mr-2'></i> Guardar Cambios
             </button>
         </form>
     </div>

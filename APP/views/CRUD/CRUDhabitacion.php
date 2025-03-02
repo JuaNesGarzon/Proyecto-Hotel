@@ -5,7 +5,6 @@ if (session_status() == PHP_SESSION_NONE) {
 require "../../config/conexion.php";
 include("../../models/deleteHabitacion.php");
 
-
 $loggedIn = !empty($_SESSION['user_id']) && !empty($_SESSION['user_name']);
 
 // Lógica de búsqueda
@@ -38,7 +37,6 @@ $resultado = mysqli_query($conexion, $sql);
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
                     <li><a href="./CRUDempleado.php">empleados</a></li>
-                    <li><a href="./CRUDreserva.php">reservas</a></li>
                     <li><a href="./CRUDadmin.php">huespedes</a></li>
                     <li><a href="./CRUDservicio.php">servicios</a></li>
                 </ul>
@@ -87,36 +85,37 @@ $resultado = mysqli_query($conexion, $sql);
                         </tr>
                     </thead>
                     <tbody id="habitacionTableBody">
-                        <?php while($row = mysqli_fetch_assoc($resultado)): ?>
-                            <tr class="border-b border-gray-50 hover:bg-gray-700">
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['id_habitacion']); ?></td>
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['numero_habitacion']); ?></td>
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['tipo']); ?></td>
-                                <td class="py-4 px-6 text-white">$<?php echo htmlspecialchars($row['precio']); ?></td>
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['estado']); ?></td>
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['numero_personas']); ?></td>
-                                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars(substr($row['descripcion'], 0, 50)) . '...'; ?></td>
-                                <td class="py-4 px-6 text-white">
-                                    <?php if(!empty($row['imagen_path'])): ?>
-                                        <img src="<?php echo htmlspecialchars($row['imagen_path']); ?>" alt="Imagen de habitación" class="w-20 h-20 object-cover">
-                                    <?php else: ?>
-                                        Sin imagen
-                                    <?php endif; ?>
-                                </td>
-                                <td class="py-4 px-6">
-                                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Edithabitacion.php?id_habitacion=<?= $row['id_habitacion'] ?>">Editar</a></button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"><a onclick="return eliminar()" href="CRUDhabitacion.php?id_habitacion=<?= $row['id_habitacion'] ?>">Eliminar</a></button>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
+        <?php while($row = mysqli_fetch_assoc($resultado)): ?>
+            <tr class="border-b border-gray-50 hover:bg-gray-700">
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['id_habitacion']); ?></td>
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['numero_habitacion']); ?></td>
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['tipo']); ?></td>
+                <td class="py-4 px-6 text-white">$<?php echo htmlspecialchars($row['precio']); ?></td>
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['estado']); ?></td>
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['numero_personas']); ?></td>
+                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars(substr($row['descripcion'], 0, 50)) . '...'; ?></td>
+                <td class="py-4 px-6 text-white">
+                    <?php if(!empty($row['imagen_path'])): ?>
+                        <img src="<?php echo htmlspecialchars('../../../' . $row['imagen_path']); ?>" alt="Imagen de habitación" class="w-20 h-20 object-cover rounded">
+                    <?php else: ?>
+                        <div class="w-20 h-20 bg-gray-300 flex items-center justify-center rounded">
+                            <span class="text-gray-500 text-sm">Sin imagen</span>
+                        </div>
+                    <?php endif; ?>
+                </td>
+                <td class="py-4 px-6">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Edithabitacion.php?id_habitacion=<?= $row['id_habitacion'] ?>">Editar</a></button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"><a onclick="return eliminar()" href="CRUDhabitacion.php?id_habitacion=<?= $row['id_habitacion'] ?>">Eliminar</a></button>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </tbody>
                 </table>
             </div>
         </div>
     </section>
 
 <!-- Jquery needed -->
-   <!-- Jquery needed -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/CRUDadmin.js"></script>
 
@@ -133,34 +132,34 @@ $resultado = mysqli_query($conexion, $sql);
 
         // Search functionality
         document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    const userTableBody = document.getElementById('userTableBody');
-    const rows = userTableBody.getElementsByTagName('tr');
+            const searchInput = document.getElementById('searchInput');
+            const habitacionTableBody = document.getElementById('habitacionTableBody');
+            const rows = habitacionTableBody.getElementsByTagName('tr');
 
-    searchInput.addEventListener('keyup', function() {
-        const searchTerm = searchInput.value.toLowerCase();
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = searchInput.value.toLowerCase();
 
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            const cells = row.getElementsByTagName('td');
-            let found = false;
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName('td');
+                    let found = false;
 
-            for (let j = 0; j < cells.length; j++) {
-                const cellText = cells[j].textContent.toLowerCase();
-                if (cellText.indexOf(searchTerm) > -1) {
-                    found = true;
-                    break;
+                    for (let j = 0; j < cells.length; j++) {
+                        const cellText = cells[j].textContent.toLowerCase();
+                        if (cellText.indexOf(searchTerm) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 }
-            }
-
-            if (found) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        }
-    });
-});
+            });
+        });
     </script>
 </body>
 </html>
