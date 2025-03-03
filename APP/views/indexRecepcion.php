@@ -52,10 +52,6 @@ $result = $conexion->query($sql);
                     <i class='bx bx-grid-alt text-xl mr-3'></i>
                     Habitaciones
                 </a>
-                <a href="checkout.php" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
-                    <i class='bx bx-log-out-circle text-xl mr-3'></i>
-                    Check-out
-                </a>
             </nav>
         </div>
 

@@ -34,8 +34,10 @@ $result_servicios = $conexion->query($sql_servicios);
 
 // Calcular costo total
 $costo_total = 0;
+$servicios = [];
 while ($servicio = $result_servicios->fetch_assoc()) {
     $costo_total += $servicio['costo_total'];
+    $servicios[] = $servicio;
 }
 ?>
 
@@ -47,7 +49,7 @@ while ($servicio = $result_servicios->fetch_assoc()) {
     <title>Recibo de Reserva - Hotel Deja Vu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="shortcout icon" href="../../public/images/logo1.ico">
+    <link rel="shortcut icon" href="../../public/images/logo1.ico">
 </head>
 <body class="bg-gradient-to-r from-black to-purple-800 min-h-screen font-sans">
     <div class="container mx-auto mt-20 p-8">
@@ -55,6 +57,7 @@ while ($servicio = $result_servicios->fetch_assoc()) {
             <h1 class="text-3xl font-bold text-white mb-6 text-center">Recibo de Reserva</h1>
             
             <div class="mb-6">
+                <p class="text-white">(asegurese de tomar una captura de pantalla a este recibo para confirmar en el hotel)</p><br>
                 <h2 class="text-xl font-semibold text-white mb-2">Información del Huésped</h2>
                 <p class="text-white"><strong>Nombre:</strong> <?php echo $huesped['nombre'] . ' ' . $huesped['apellido']; ?></p>
                 <p class="text-white"><strong>Documento:</strong> <?php echo $huesped['documento']; ?></p>
@@ -63,6 +66,7 @@ while ($servicio = $result_servicios->fetch_assoc()) {
 
             <div class="mb-6">
                 <h2 class="text-xl font-semibold text-white mb-2">Detalles de la Reserva</h2>
+                <p class="text-white"><strong>Número de habitación:</strong> <?php echo $reserva['numero_habitacion']; ?></p>
                 <p class="text-white"><strong>Fecha de llegada:</strong> <?php echo $reserva['fecha_inicio']; ?></p>
                 <p class="text-white"><strong>Fecha de salida:</strong> <?php echo $reserva['fecha_salida']; ?></p>
                 <p class="text-white"><strong>Número de huéspedes:</strong> <?php echo $reserva['numero_huespedes']; ?></p>
@@ -71,11 +75,11 @@ while ($servicio = $result_servicios->fetch_assoc()) {
 
             <div class="mb-6">
                 <h2 class="text-xl font-semibold text-white mb-2">Servicios Adicionales</h2>
-                <?php if ($result_servicios->num_rows > 0): ?>
+                <?php if (!empty($servicios)): ?>
                     <ul class="list-disc list-inside text-white">
-                        <?php while ($servicio = $result_servicios->fetch_assoc()): ?>
-                            <li><?php echo $servicio['nombreServicio']; ?> - $<?php echo number_format($servicio['costo_total'], 2); ?></li>
-                        <?php endwhile; ?>
+                        <?php foreach ($servicios as $servicio): ?>
+                            <li><?php echo $servicio['nombreServicio']; ?>: $<?php echo number_format($servicio['costo_total'], 2); ?></li>
+                        <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
                     <p class="text-white">No se seleccionaron servicios adicionales.</p>
@@ -88,6 +92,9 @@ while ($servicio = $result_servicios->fetch_assoc()) {
         </div>
     </div>
 
-    <a href="../../public/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 items-center">Volver</a>
+    <div class="text-center mt-8">
+        <a href="../../public/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 inline-block">Volver al Inicio</a>
+    </div>
 </body>
 </html>
+

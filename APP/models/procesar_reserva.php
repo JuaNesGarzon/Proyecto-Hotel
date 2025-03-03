@@ -11,16 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_huesped = $_SESSION['user_id'];
     $check_in = $_POST['check-in'];
     $check_out = $_POST['check-out'];
-    $guests = $_POST['guests'];
+    $guests = intval($_POST['guests']);
     $room_type = $_POST['room-type'];
+    $numero_habitacion = $_POST['numero_habitacion'];
     $servicios = isset($_POST['servicios']) ? $_POST['servicios'] : [];
 
     // Insertar la reserva
-    $sql_reserva = "INSERT INTO reservas (fecha_inicio, fecha_salida, estado, numero_huespedes, tipo_habitacion, id_huesped, roles_huespedes_id_rol) 
-                    VALUES (?, ?, 'confirmada', ?, ?, ?, 2)";
-    
+    $sql_reserva = "INSERT INTO reservas (fecha_inicio, fecha_salida, estado, numero_huespedes, tipo_habitacion, id_huesped, roles_huespedes_id_rol, numero_habitacion) 
+                VALUES (?, ?, 'confirmada', ?, ?, ?, 2, ?)";
+
     $stmt = $conexion->prepare($sql_reserva);
-    $stmt->bind_param("ssisi", $check_in, $check_out, $guests, $room_type, $id_huesped);
+    $stmt->bind_param("ssisss", $check_in, $check_out, $guests, $room_type, $id_huesped, $numero_habitacion);
     
     if ($stmt->execute()) {
         $id_reserva = $conexion->insert_id;
@@ -48,6 +49,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_servicio->execute();
         }
 
+        // Update the room status to 'ocupada'
+        $sql_update_room = "UPDATE habitaciones SET estado = 'ocupada' WHERE numero_habitacion = ?";
+        $stmt_update_room = $conexion->prepare($sql_update_room);
+        $stmt_update_room->bind_param("s", $numero_habitacion);
+        if (!$stmt_update_room->execute()) {
+            echo "Error al actualizar el estado de la habitación: " . $conexion->error;
+            exit();
+        }
+
         // Redirigir al recibo
         header("Location: ../views/recibo.php?id_reserva=$id_reserva");
         exit();
@@ -55,3 +65,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error al procesar la reserva: " . $conexion->error;
     }
 }
+

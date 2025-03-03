@@ -122,7 +122,7 @@ if (!$loggedIn) {
             </h1>
 
             <!-- Booking Form -->
-            <form action="procesar-reserva.php" method="POST"
+            <form action="habitaciones.php" method="POST"
                 class="w-full max-w-4xl mx-auto p-6 bg-white/10 backdrop-blur-md rounded-lg">
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
                     <div class="space-y-2">
@@ -141,9 +141,9 @@ if (!$loggedIn) {
                             class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white" required>
                     </div>
                     <div class="space-y-2">
-                        <label for="children" class="block text-white">Niños</label>
-                        <input type="number" id="children" name="children" min="0" value="0"
-                            class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white">
+                        <label for="adults" class="block text-white">Niños</label>
+                        <input type="number" id="adults" name="adults" min="1" value="2"
+                            class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white" required>
                     </div>
                 </div>
                 <button type="submit"
@@ -190,21 +190,19 @@ if (!$loggedIn) {
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Text Content -->
                 <div class="max-w-xl">
-                    <h3 class="text-neutral-600 uppercase tracking-wider mb-4">ABOUT US</h3>
+                    <h3 class="text-neutral-600 uppercase tracking-wider mb-4">SOBRE NOSOTROS</h3>
                     <h2 class="text-4xl md:text-5xl font-serif text-neutral-800 mb-6">
                         Servicios personalizados y la experiencia de vacaciones únicas
                     </h2>
                     <p class="text-lg text-neutral-600 mb-4">
-                        Vivamus volutpat eros pulvinar velit laoreet, sit amet egestas erat dignissim.
+                    En nombre del hotel deja vu, nos dedicamos a ofrecer una experiencia única, donde la excelencia y la calidez se fusionan para superar tus expectativas.
                     </p>
                     <p class="text-neutral-600 mb-8">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                        laudantium,
-                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                        dicta sunt explicabo.
+                    Nuestro sistema de gestión eficiente garantiza una atención personalizada y ágil, asegurando que cada detalle esté cuidado al máximo. 
+                    Ya sea por negocios o placer, en nombre del hotel deja vu encontrarás el equilibrio perfecto entre confort, tecnología y servicio excepcional.
                     </p>
                     <p class="font-handwriting text-2xl text-neutral-800">
-                        Maria...la Propietaria
+                        Angel...el Propietario
                     </p>
                 </div>
 
@@ -244,9 +242,9 @@ if (!$loggedIn) {
         <div class="container mx-auto">
             <!-- Section Header -->
             <div class="max-w-xl mb-12">
-                <h3 class="text-neutral-600 uppercase tracking-wider mb-4">LUXURY EXPERIENCE</h3>
+                <h3 class="text-neutral-600 uppercase tracking-wider mb-4">EXPERIENCIA DE LUJO</h3>
                 <h2 class="text-4xl md:text-5xl font-serif text-neutral-800">
-                    Rooms & Suites
+                    Habitaciones & Suites
                 </h2>
             </div>
 
@@ -315,7 +313,7 @@ if (!$loggedIn) {
             <div class="text-center mb-16">
                 <h3 class="text-neutral-600 uppercase tracking-wider mb-4">HOTEL DEJA VU</h3>
                 <h2 class="text-4xl md:text-5xl font-serif text-neutral-800">
-                    Main Facilities
+                    Instalaciones principales
                 </h2>
             </div>
 
@@ -332,9 +330,9 @@ if (!$loggedIn) {
                             <path d="M12 3l6 3H6l6-3z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-serif mb-4">Private Parking</h3>
+                    <h3 class="text-xl font-serif mb-4">Parqueadero privado</h3>
                     <p class="text-neutral-600">
-                        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
+                        Seguridad 24/7 con camaras incluidas todo el tiempo.
                     </p>
                 </div>
 
@@ -349,9 +347,9 @@ if (!$loggedIn) {
                             <path d="M1 4.5c11-8 11 8 22 0" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-serif mb-4">High Speed Wifi</h3>
+                    <h3 class="text-xl font-serif mb-4">Internet de muy buena calidad</h3>
                     <p class="text-neutral-600">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
+                        Ofrecemos conectividad alta para tus asuntos online.
                     </p>
                 </div>
 
@@ -368,7 +366,7 @@ if (!$loggedIn) {
                     </div>
                     <h3 class="text-xl font-serif mb-4">Bar & Restaurant</h3>
                     <p class="text-neutral-600">
-                        Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                        Todo tipo de comida y bebidas que puedas imaginar la tenemos en nuestro bar y restaurante.
                     </p>
                 </div>
 
@@ -382,9 +380,9 @@ if (!$loggedIn) {
                             <path d="M2 12c2-2 4-2 6 0c2-2 4-2 6 0c2-2 4-2 6 0" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-serif mb-4">Swimming Pool</h3>
+                    <h3 class="text-xl font-serif mb-4">Piscina</h3>
                     <p class="text-neutral-600">
-                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                        Espacio limpio y bien cuidado para que te distraigas sin salir del hotel.
                     </p>
                 </div>
             </div>

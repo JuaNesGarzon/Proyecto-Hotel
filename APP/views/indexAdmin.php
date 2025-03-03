@@ -84,11 +84,11 @@ if (isset($_POST['cerrar_sesion'])) {
                             </a>
                         </li>
                         <li class="px-4">
-                            <a href="#" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
+                            <a href="CuentasProv.php" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
                                 <span class="sidebar-icon-only">
-                                    <i class='bx bx-group w-8 h-6 text-1xl scale-150'></i>
+                                    <i class='bx bx-receipt w-8 h-6 text-1xl scale-150'></i>
                                 </span>
-                                <span class="ml-3 sidebar-full hidden d-flex">Cuentas de Proveedores</span>
+                                <span class="ml-3 sidebar-full hidden">Cuentas de Proveedores</span>
                             </a>
                         </li>
                     </ul>
@@ -134,3 +134,4 @@ if (isset($_POST['cerrar_sesion'])) {
     </div>
 </body>
 </html>
+

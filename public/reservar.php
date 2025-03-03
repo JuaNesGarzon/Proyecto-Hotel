@@ -21,6 +21,9 @@ $huesped = $result_huesped->fetch_assoc();
 // Obtener servicios de la base de datos
 $sql_servicios = "SELECT * FROM servicios";
 $result_servicios = $conexion->query($sql_servicios);
+
+// Obtener número de habitación
+$numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -50,8 +53,7 @@ $result_servicios = $conexion->query($sql_servicios);
             <a href="#" class="text-white text-3xl font-bold">Hotel Deja Vu</a>
             <div class="space-x-4">
                 <a href="index.php" class="text-white text-2xl hover:text-gray-200">Inicio</a>
-                <a href="#" class="text-white text-2xl hover:text-gray-200">Habitaciones</a>
-                <a href="#" class="text-white text-2xl hover:text-gray-200">Contacto</a>
+                <a href="habitaciones.php" class="text-white text-2xl hover:text-gray-200">Habitaciones</a>
             </div>
         </div>
     </nav>
@@ -63,6 +65,11 @@ $result_servicios = $conexion->query($sql_servicios);
             <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-xl p-6 shadow-lg">
                 <h2 class="text-2xl font-bold text-white mb-6">Reservar Habitación</h2>
                 <form action="../APP/models/procesar_reserva.php" method="POST" class="space-y-4">
+                    <input type="hidden" name="numero_habitacion" value="<?php echo htmlspecialchars($numero_habitacion); ?>">
+                    <div>
+                        <label for="numero_habitacion" class="block text-white mb-2">Número de habitación</label>
+                        <input type="text" id="numero_habitacion" value="<?php echo htmlspecialchars($numero_habitacion); ?>" class="w-full p-2 rounded-md" readonly>
+                    </div>
                     <div>
                         <label for="check-in" class="block text-white mb-2">Fecha de llegada</label>
                         <input type="text" id="check-in" name="check-in" class="w-full p-2 rounded-md" required>
@@ -85,33 +92,17 @@ $result_servicios = $conexion->query($sql_servicios);
                         </select>
                     </div>
                     
-                    <!-- Servicios Adicionales Desplegable -->
-                    <div class="relative">
-                        <button 
-                            type="button"
-                            id="toggleServices" 
-                            class="w-full flex items-center justify-between bg-gray-800 text-white p-4 rounded-lg hover:bg-gray-700 transition-colors"
-                            onclick="toggleServicesVisibility()"
-                        >
-                            <span class="font-medium">Servicios adicionales</span>
-                            <svg id="chevronIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        
-                        <div id="serviciosContainer" class="hidden mt-2">
-                            <div class="border border-gray-300 rounded-lg bg-white shadow-sm">
-                                <div class="p-4">
-                                    <select id="servicios" name="servicios[]" multiple class="w-full p-2 rounded-md border-gray-300" size="4">
-                                        <?php while($servicio = $result_servicios->fetch_assoc()): ?>
-                                            <option value="<?php echo htmlspecialchars($servicio['id_servicio']); ?>">
-                                                <?php echo htmlspecialchars($servicio['nombreServicio']); ?> - $<?php echo number_format($servicio['costo'], 2); ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
-                                </div>
+                    <!-- Servicios Adicionales -->
+                    <div>
+                        <label class="block text-white mb-2">Servicios adicionales</label>
+                        <?php while($servicio = $result_servicios->fetch_assoc()): ?>
+                            <div class="flex items-center mb-2">
+                                <input type="checkbox" name="servicios[]" value="<?php echo $servicio['id_servicio']; ?>" id="servicio_<?php echo $servicio['id_servicio']; ?>" class="mr-2">
+                                <label for="servicio_<?php echo $servicio['id_servicio']; ?>" class="text-white">
+                                    <?php echo htmlspecialchars($servicio['nombreServicio']); ?> - $<?php echo number_format($servicio['costo'], 2); ?>
+                                </label>
                             </div>
-                        </div>
+                        <?php endwhile; ?>
                     </div>
 
                     <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">Reservar ahora</button>
@@ -282,3 +273,4 @@ $result_servicios = $conexion->query($sql_servicios);
     </script>
 </body>
 </html>
+

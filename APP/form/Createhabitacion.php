@@ -27,7 +27,7 @@ include __DIR__ . '/../config/conexion.php';
         <a href="javascript:history.back()" class="mb-4 inline-flex items-center text-white hover:text-gray-200 transition-colors">
             <i class='bx bx-left-arrow-alt text-2xl mr-2'></i> Volver
         </a>
-        <form method="POST" action="../../../models/addHabitacion.php" enctype="multipart/form-data" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
+        <form method="POST" action="../models/addHabitacion.php" enctype="multipart/form-data" class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-lg p-8">
             <h3 class="text-3xl font-bold text-white mb-6 text-center">Agregar habitación</h3>
             
             <?php if(isset($_GET['success'])): ?>
