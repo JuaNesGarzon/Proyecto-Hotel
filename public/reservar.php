@@ -33,27 +33,35 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar - Hotel Deja Vu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
-        .hidden {
-            display: none;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coral': '#ff7f50',
+                        'primary': '#33423a'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    }
+                }
+            }
         }
-        .rotate-180 {
-            transform: rotate(180deg);
-        }
-    </style>
+    </script>
 </head>
-<body class="bg-gradient-to-r from-black to-purple-800 min-h-screen font-sans">
+<body class="bg-primary font-montserrat min-h-screen">
     <!-- Navbar -->
-    <nav class="top-0 left-0 right-0 z-50 p-4 position-sticky">
+    <nav class="sticky top-0 left-0 right-0 z-50 p-4 bg-primary/90 backdrop-blur-lg">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-white text-3xl font-bold">Hotel Deja Vu</a>
+            <a href="#" class="text-white text-3xl font-playfair font-bold">Hotel Deja Vu</a>
             <div class="space-x-4">
-                <a href="index.php" class="text-white text-2xl hover:text-gray-200">Inicio</a>
-                <a href="habitaciones.php" class="text-white text-2xl hover:text-gray-200">Habitaciones</a>
+                <a href="index.php" class="text-white text-2xl hover:text-coral transition-colors">Inicio</a>
+                <a href="habitaciones.php" class="text-white text-2xl hover:text-coral transition-colors">Habitaciones</a>
             </div>
         </div>
     </nav>
@@ -105,7 +113,7 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
                         <?php endwhile; ?>
                     </div>
 
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">Reservar ahora</button>
+                    <button type="submit" class="w-full bg-coral text-black py-2 px-4 rounded-md hover:bg-coral/70 transition duration-300 color-white">Reservar ahora</button>
                 </form>
             </div>
         </div>
@@ -131,10 +139,9 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <!-- Contacts Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Contacts</h4>
+                    <h4 class="text-xl mb-6">Contactos</h4>
                     <address class="not-italic mb-4">
-                        Baker Street 567, Los Angeles 11023<br>
-                        California - US
+                        Guarne
                     </address>
                     <a href="mailto:info@hoteldejavucom"
                         class="text-neutral-300 hover:text-white transition duration-200">
@@ -142,7 +149,7 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
                     </a>
                     <div class="mt-2">
                         <a href="tel:+4344324232" class="text-neutral-300 hover:text-white transition duration-200">
-                            +434 43242232
+                            +57 319 5277984
                         </a>
                     </div>
                     <!-- Social Media Icons -->
@@ -176,28 +183,23 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
 
                 <!-- Explore Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Explore</h4>
+                    <h4 class="text-xl mb-6">Explorar</h4>
                     <nav class="flex flex-col gap-3">
-                        <a href="/" class="text-neutral-300 hover:text-white transition duration-200">Home</a>
-                        <a href="about.php" class="text-neutral-300 hover:text-white transition duration-200">About
-                            Us</a>
-                        <a href="rooms.php" class="text-neutral-300 hover:text-white transition duration-200">Rooms &
+                        <a href="index.php" class="text-neutral-300 hover:text-white transition duration-200">inicio</a>
+                        <a href="about.php" class="text-neutral-300 hover:text-white transition duration-200">Sobre nosotros</a>
+                        <a href="rooms.php" class="text-neutral-300 hover:text-white transition duration-200">Habitaciones &
                             Suites</a>
-                        <a href="news.php" class="text-neutral-300 hover:text-white transition duration-200">News &
-                            Events</a>
-                        <a href="contact.php"
-                            class="text-neutral-300 hover:text-white transition duration-200">Contacts</a>
-                        <a href="terms.php" class="text-neutral-300 hover:text-white transition duration-200">Terms and
-                            Conditions</a>
+                        <a href="news.php" class="text-neutral-300 hover:text-white transition duration-200">Noticias y eventos</a>
+                        <a href="terms.php" class="text-neutral-300 hover:text-white transition duration-200">Terminos y condiciones</a>
                     </nav>
                 </div>
 
                 <!-- Newsletter Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Newsletter</h4>
+                    <h4 class="text-xl mb-6">Ofertas</h4>
                     <form action="subscribe.php" method="POST" class="space-y-4">
                         <div class="relative">
-                            <input type="email" name="email" placeholder="Your email"
+                            <input type="email" name="email" placeholder="Tu email"
                                 class="w-full bg-neutral-800 border-neutral-700 rounded-md py-2 px-4 text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-600"
                                 required>
                             <button type="submit"
@@ -210,7 +212,7 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
                             </button>
                         </div>
                         <p class="text-sm text-neutral-400">
-                            Receive latest offers and promos without spam. You can cancel anytime.
+                        Recibe las últimas ofertas y promociones sin spam. Puedes cancelar en cualquier momento.
                         </p>
                     </form>
                 </div>
@@ -218,7 +220,7 @@ $numero_habitacion = isset($_GET['numero']) ? $_GET['numero'] : '';
 
             <!-- Copyright -->
             <div class="mt-12 pt-8 border-t border-neutral-800 text-center text-neutral-400 text-sm">
-                <p>&copy; Hotel Deja Vu - by <a href="#" class="hover:text-white transition duration-200">Ansonika</a>
+                <p>&copy; Hotel Deja Vu <a href="#" class="hover:text-white transition duration-200"></a>
                 </p>
             </div>
         </div>

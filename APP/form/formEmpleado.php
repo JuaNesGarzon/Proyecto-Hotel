@@ -1,5 +1,7 @@
 <?php 
 session_start();
+require __DIR__ . '/../config/conexion.php';
+require_once __DIR__ . '/../controllers/encriptar_desencriptar.php';
 
 if (isset($_SESSION['id_empleado'])) {
     if ($_SESSION['cargo'] == 1) {
@@ -21,21 +23,31 @@ if (isset($_SESSION['id_empleado'])) {
     exit();
 }
 
-require __DIR__ . '/../config/conexion.php';
+$error = "";
 
 if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
     $correo = $_POST['correo'];
-    $password = $_POST['contraseña'];
+    $password_ingresado = $_POST['contraseña'];
+    
+    // Inicializar la clase de encriptación
+    $encriptarDesencriptar = new EncriptarDesencriptar();
+    $clave = "d3j4vu_H0t3l"; // Misma clave que se usa para huéspedes
+    
+    // Consulta preparada para evitar inyección SQL
+    $sql = "SELECT id_empleado, nombre, apellido, cargo, correo, contraseña FROM empleados WHERE correo = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    $sql = "SELECT id_empleado, nombre, apellido, cargo, correo, contraseña FROM empleados WHERE correo = '$correo' AND contraseña = '$password'";
-    $result = mysqli_query($conexion, $sql);
-
-    if ($result->num_rows >0) 
-    {
-        $fila = mysqli_fetch_assoc($result);
-
-        if ($fila['contraseña'] == $password) 
-        {
+    if ($result->num_rows > 0) {
+        $fila = $result->fetch_assoc();
+        
+        // Desencriptar la contraseña almacenada
+        $password_desencriptado = $encriptarDesencriptar->decrypt($fila['contraseña'], $clave);
+        
+        // Comparar con la contraseña ingresada
+        if ($password_ingresado == $password_desencriptado) {
             $_SESSION['id_empleado'] = $fila['id_empleado'];
             $_SESSION['nombre'] = $fila['nombre'];
             $_SESSION['cargo'] = $fila['cargo'];
@@ -50,16 +62,16 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
                 header("location:../views/indexAseo.php");
             } else {
                 header("location: formEmpleado.php");
-                return "no se encontro el empleado";
-        }
-        exit();
-    }   else { 
-        $error = "contraseña incorrecta";
+                $error = "No se encontró el empleado";
+            }
+            exit();
+        } else { 
+            $error = "Contraseña incorrecta";
         }
     } else {
-        $error = "no se encontro el empleado";
+        $error = "No se encontró el empleado";
     }
-
+    $stmt->close();
 }
 
 mysqli_close($conexion);
@@ -77,6 +89,16 @@ mysqli_close($conexion);
     <link rel="stylesheet" href="../../public/css/empleados.css">
     <link rel="shortcout icon" href="../../public/images/logo1.ico">
     <title>Inicio sesión empleados</title>
+    <style>
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="background-slider">
@@ -85,19 +107,26 @@ mysqli_close($conexion);
     <div class="sign-in" id="sign-in">
     <div class="form-information">
         <h1><strong>Ingreso de Empleados</strong></h1>
-    <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <div class="input-group">
-            <i class='bx bx-envelope'></i>
-            <input type="email" name="correo" placeholder="Correo electrónico" required />
-        </div>
-        <div class="input-group">
-            <i class='bx bx-lock'></i>
-            <input type="password" id="passwordInput" name="contraseña" placeholder="Contraseña" required />
-            <i class='bx bx-hide password-toggle' id="togglePassword" style="cursor: pointer;"></i>
-        </div>
-        <button type="submit" name="iniciar_sesion" value="iniciar sesion">Iniciar Sesión</button>
-    </form>
-</div>
+        
+        <?php if (!empty($error)): ?>
+            <div class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+        
+        <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <div class="input-group">
+                <i class='bx bx-envelope'></i>
+                <input type="email" name="correo" placeholder="Correo electrónico" required />
+            </div>
+            <div class="input-group">
+                <i class='bx bx-lock'></i>
+                <input type="password" id="passwordInput" name="contraseña" placeholder="Contraseña" required />
+                <i class='bx bx-hide password-toggle' id="togglePassword" style="cursor: pointer;"></i>
+            </div>
+            <button type="submit" name="iniciar_sesion" value="iniciar sesion">Iniciar Sesión</button>
+        </form>
+    </div>
     </div>
 
     <div class="back">

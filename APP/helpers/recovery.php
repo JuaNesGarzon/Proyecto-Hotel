@@ -33,21 +33,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Contenido
                 $mail->isHTML(true);
                 $mail->Subject = 'Recuperación de Contraseña - Hotel Dejá vu';
-               // En el archivo recovery.php, dentro del cuerpo del correo electrónico
-               $resetUrl = 'http://localhost/hotel-Dej%c3%a1%20vu/reset.php?token=' . urlencode($token);
-               $mail->Body = "
-               <html>
-               <body>
-               <h2>Recuperación de Contraseña - Hotel Dejá vu</h2>
-               <p>Has solicitado restablecer tu contraseña.</p>
-               <p>Haz clic en el siguiente enlace para crear una nueva contraseña:</p>
-               <a href='$resetUrl'>
-               Restablecer Contraseña
-               </a>
-               <p>Este enlace expirará en 1 hora.</p>
-               </body>
-               </html>
-            ";
+                $mail->CharSet = 'UTF-8'; // Especifica la codificación UTF-8
+
+                $baseUrl = 'http://localhost/hotel-Dejá%20vu/reset.php'; // URL base
+                $resetUrl = $baseUrl . '?token=' . $token; // Agrega el token sin urlencode
+
+                $mail->Body = "
+                    <html>
+                    <head>
+                        <meta charset='UTF-8'> 
+                    </head>
+                    <body>
+                    <h2>Recuperación de Contraseña - Hotel Dejá vu</h2>
+                    <p>Has solicitado restablecer tu contraseña.</p>
+                    <p>Haz clic en el siguiente enlace para crear una nueva contraseña:</p>
+                    <a href='" . htmlspecialchars($resetUrl) . "'>Restablecer Contraseña</a>
+                    <p>Este enlace expirará en 1 hora.</p>
+                    </body>
+                    </html>
+                ";
 
                 $mail->send();
                 echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo electrónico.'); window.location.href='../form/restablecer.php';</script>";
@@ -61,3 +65,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('No se encontró una cuenta asociada a este correo electrónico.'); window.location.href='../form/restablecer.php';</script>";
     }
 }
+?>

@@ -1,51 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcout icon" href="../../public/images/logo1.ico">
+    <link rel="shortcut icon" href="../../public/images/logo1.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Informes financieros de hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Informes Financieros - Hotel Deja Vu</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#33423a'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8">Informes Financieros</h1>
+<body class="bg-primary font-montserrat text-white">
+    <div class="container mx-auto px-4 py-8 text-white">
+        <h1 class="text-3xl font-playfair font-bold mb-8">Informes Financieros</h1>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">Ingresos Mensuales</h2>
-                <canvas id="incomeChart"></canvas>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 text-white">
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg text-white">
+                <h2 class="text-xl font-semibold mb-4 text-white">Ingresos Mensuales</h2>
+                <canvas class="w-full h-96 text-white" id="incomeChart"></canvas>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Gastos Mensuales</h2>
                 <canvas id="expensesChart"></canvas>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Beneficios Mensuales</h2>
                 <canvas id="profitChart"></canvas>
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg mb-8">
             <h2 class="text-xl font-semibold mb-4">Generar Informe</h2>
             <form id="reportForm" class="flex items-center space-x-4">
-                <select id="month" name="month" class="border rounded px-3 py-2">
-                    <option value="1">Enero</option>
-                    <option value="2">Febrero</option>
-                    <option value="3">Marzo</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Mayo</option>
-                    <option value="6">Junio</option>
-                    <option value="7">Julio</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
+                <select id="month" name="month" class="bg-black/50 border border-white/20 rounded-xl px-3 py-2 text-white">
+                    <option class="bg-primary/10 text-black" value="1">Enero</option>
+                    <option class="bg-primary/10 text-black" value="2">Febrero</option>
+                    <option class="bg-primary/10 text-black" value="3">Marzo</option>
+                    <option class="bg-primary/10 text-black" value="4">Abril</option>
+                    <option class="bg-primary/10 text-black" value="5">Mayo</option>
+                    <option class="bg-primary/10 text-black" value="6">Junio</option>
+                    <option class="bg-primary/10 text-black" value="7">Julio</option>
+                    <option class="bg-primary/10 text-black" value="8">Agosto</option>
+                    <option class="bg-primary/10 text-black" value="9">Septiembre</option>
+                    <option class="bg-primary/10 text-black" value="10">Octubre</option>
+                    <option class="bg-primary/10 text-black" value="11">Noviembre</option>
+                    <option class="bg-primary/10 text-black" value="12">Diciembre</option>
                 </select>
-                <select id="year" name="year" class="border rounded px-3 py-2">
+                <select id="year" name="year" class="bg-black/50 border border-white/20 rounded-xl px-3 py-2 text-white">
                     <?php
                     $currentYear = date('Y');
                     for ($i = $currentYear; $i >= $currentYear - 5; $i--) {
@@ -53,17 +69,28 @@
                     }
                     ?>
                 </select>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Generar Informe</button>
+                <button type="submit" class="bg-white text-primary px-4 py-2 rounded-xl hover:bg-white/90 transition-colors font-semibold">
+                    Generar Informe
+                </button>
             </form>
         </div>
-        <a href="indexAdmin.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Volver</a>
 
-        <div id="reportResult" class="bg-white p-6 rounded-lg shadow-md hidden">
+        <a href="indexAdmin.php" class="bg-white text-primary px-4 py-2 rounded-xl hover:bg-white/90 transition-colors font-semibold inline-block">
+            Volver
+        </a>
+
+        <div id="reportResult" class="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg hidden mt-8">
             <h2 class="text-xl font-semibold mb-4">Resultado del Informe</h2>
             <div id="reportData"></div>
-            <div class="mt-4">
-                <a id="pdfLink" href="#" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mr-2">Descargar PDF</a>
-                <a id="excelLink" href="#" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Descargar Excel</a>
+            <div class="mt-4 flex gap-4">
+                <a id="pdfLink" href="#" class="bg-white text-primary px-4 py-2 rounded-xl hover:bg-white/90 transition-colors font-semibold inline-flex items-center">
+                    <i class='bx bxs-file-pdf mr-2'></i>
+                    Descargar PDF
+                </a>
+                <a id="excelLink" href="#" class="bg-white text-primary px-4 py-2 rounded-xl hover:bg-white/90 transition-colors font-semibold inline-flex items-center">
+                    <i class='bx bxs-file-export mr-2'></i>
+                    Descargar Excel
+                </a>
             </div>
         </div>
     </div>
@@ -108,7 +135,7 @@
                 if (data.success) {
                     const reportData = document.getElementById('reportData');
                     reportData.innerHTML = `
-                        <p>Ingresos: $${data.data.income.toFixed(2)}</p>
+                        <p class="text-white">Ingresos: $${data.data.income.toFixed(2)}</p>
                         <p>Gastos: $${data.data.expenses.toFixed(2)}</p>
                         <p>Beneficios: $${data.data.profit.toFixed(2)}</p>
                     `;

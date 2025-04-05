@@ -22,29 +22,39 @@ $resultado = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/CRUDadmin.css">
     <link rel="shortcut icon" href="../../../public/images/logo1.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>CRUD Servicios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Administración de Servicios - Hotel Deja Vu</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coral': '#ff7f50',
+                        'primary': '#33423a'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-blue-900 text-3xl font-['Roboto',_sans-serif]">
-<nav class="nav">
-        <div class="container">
-            <div class="logo">
-                <a href="../indexAdmin.php">inicio</a>
+<body class="min-h-screen bg-primary font-montserrat text-white">
+    <!-- Navbar -->
+    <nav class="bg-primary/90 backdrop-blur-lg fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <h1 class="text-3xl font-playfair font-bold">Hotel Deja Vu</h1>
+            <div class="flex space-x-6">
+                <a href="../indexAdmin.php" class="text-white hover:text-coral transition-colors duration-300">Inicio</a>
+                <a href="./CRUDempleado.php" class="text-white hover:text-coral transition-colors duration-300">Empleados</a>
+                <a href="./CRUDadmin.php" class="text-white hover:text-coral transition-colors duration-300">Huéspedes</a>
+                <a href="./CRUDhabitacion.php" class="text-white hover:text-coral transition-colors duration-300">Habitaciones</a>
             </div>
-            <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">
-                    <li><a href="./CRUDempleado.php">empleados</a></li>
-                    <li><a href="./CRUDadmin.php">huespedes</a></li>
-                    <li><a href="./CRUDhabitacion.php">habitaciones</a></li>
-                </ul>
-            </div>
-            <span class="navTrigger">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
         </div>
     </nav>
  
@@ -55,67 +65,65 @@ $resultado = mysqli_query($conexion, $sql);
     }
     </script>
     
-    <section class="home pt-40 pb-10 min-h-screen flex flex-col text-xl">
-        <h1 class="text-center p-3 text-white text-6xl font-bold font-['Playfair_Display',_serif] mb-8">Servicios</h1>
-        <hr class="border-t-4 border-white w-1/3 mx-auto mb-12">
+    <main class="pt-28 pb-10 container mx-auto px-4">
+        <h1 class="text-5xl font-playfair font-bold text-center mb-6">Administración de Servicios</h1>
+        <p class="text-center text-white/70 mb-12 max-w-2xl mx-auto">Gestiona los servicios ofrecidos por el Hotel Deja Vu.</p>
         
-        <div class="container mx-auto px-4 flex-grow flex flex-col">
-            <div class="mb-10 flex justify-between items-center">
-                <div class="flex bg-white rounded-lg overflow-hidden shadow-md w-1/2">
-                    <span class="bg-blue-600 text-white py-4 px-6 text-3xl font-semibold">Buscar:</span>
-                    <input type="text" id="searchInput" class="flex-grow py-4 px-4 text-2xl focus:outline-none font-light italic" placeholder="Buscar servicios... " aria-label="Buscar servicios" aria-describedby="basic-addon1">
-                </div>
-                <button class="bg-green-500 text-white px-8 py-4 rounded-lg hover:bg-green-600 transition duration-300 text-2xl font-semibold"><a href="../../form/Createservicio.php">Agregar Servicio</a></button>
+        <div class="mb-10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="w-full md:w-2/3 flex bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden shadow-lg">
+                <span class="bg-coral text-primary py-3 px-6 font-semibold">Buscar:</span>
+                <input type="text" id="searchInput" class="w-full py-3 px-4 bg-transparent text-white placeholder-white/50 focus:outline-none" placeholder="Buscar servicios..." aria-label="Buscar servicios">
             </div>
-
-            <div class="overflow-x-auto bg-blue-150 rounded-lg shadow-lg flex-grow">
-                <table class="w-full text-2xl">
-                    <thead class="bg-blue-700 text-white">
-                        <tr>
-                            <th class="py-4 px-6 text-left font-semibold">ID</th>
-                            <th class="py-4 px-6 text-left font-semibold">Nombre</th>
-                            <th class="py-4 px-6 text-left font-semibold">Tipo</th>
-                            <th class="py-4 px-6 text-left font-semibold">Descripción</th>
-                            <th class="py-4 px-6 text-left font-semibold">Costo</th>
-                            <th class="py-4 px-6 text-left font-semibold">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="servicioTableBody">
-        <?php while($row = mysqli_fetch_assoc($resultado)): ?>
-            <tr class="border-b border-gray-50 hover:bg-gray-700">
-                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['id_servicio']); ?></td>
-                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['nombreServicio']); ?></td>
-                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars($row['tipoServicio']); ?></td>
-                <td class="py-4 px-6 text-white"><?php echo htmlspecialchars(substr($row['descripcion'], 0, 50)) . '...'; ?></td>
-                <td class="py-4 px-6 text-white">$<?php echo htmlspecialchars($row['costo']); ?></td>
-                <td class="py-4 px-6">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mr-2"><a href="../../form/Editservicio.php?id_servicio=<?= $row['id_servicio'] ?>">Editar</a></button>
-                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"><a onclick="return eliminar()" href="CRUDservicio.php?id_servicio=<?= $row['id_servicio'] ?>">Eliminar</a></button>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-    </tbody>
-                </table>
-            </div>
+            <a href="../../form/Createservicio.php" class="w-full md:w-auto bg-coral text-primary font-bold py-3 px-6 rounded-xl hover:bg-coral/70 transition duration-300 text-center">
+                <i class='bx bx-plus-circle mr-2'></i>Agregar Servicio
+            </a>
         </div>
-    </section>
 
-<!-- Jquery needed -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/CRUDadmin.js"></script>
+        <div class="overflow-x-auto bg-white/10 backdrop-blur-lg rounded-xl shadow-xl">
+            <table class="w-full">
+                <thead class="bg-coral/20 border-b border-white/10">
+                    <tr>
+                        <th class="py-4 px-6 text-left font-semibold">ID</th>
+                        <th class="py-4 px-6 text-left font-semibold">Nombre</th>
+                        <th class="py-4 px-6 text-left font-semibold">Tipo</th>
+                        <th class="py-4 px-6 text-left font-semibold">Descripción</th>
+                        <th class="py-4 px-6 text-left font-semibold">Costo</th>
+                        <th class="py-4 px-6 text-left font-semibold">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="servicioTableBody">
+                    <?php while($row = mysqli_fetch_assoc($resultado)): ?>
+                        <tr class="border-b border-white/10 hover:bg-white/5 transition duration-150">
+                            <td class="py-4 px-6"><?php echo htmlspecialchars($row['id_servicio']); ?></td>
+                            <td class="py-4 px-6"><?php echo htmlspecialchars($row['nombreServicio']); ?></td>
+                            <td class="py-4 px-6"><?php echo htmlspecialchars($row['tipoServicio']); ?></td>
+                            <td class="py-4 px-6"><?php echo htmlspecialchars(substr($row['descripcion'], 0, 50)) . '...'; ?></td>
+                            <td class="py-4 px-6">$<?php echo htmlspecialchars($row['costo']); ?></td>
+                            <td class="py-4 px-6 flex gap-2">
+                                <a href="../../form/Editservicio.php?id_servicio=<?= $row['id_servicio'] ?>" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 inline-flex items-center">
+                                    <i class='bx bx-edit-alt mr-1'></i> Editar
+                                </a>
+                                <a onclick="return eliminar()" href="CRUDservicio.php?id_servicio=<?= $row['id_servicio'] ?>" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 inline-flex items-center">
+                                    <i class='bx bx-trash mr-1'></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-    <!-- Function used to shrink nav bar removing paddings and adding black background -->
+    <!-- Footer -->
+    <footer class="bg-white/10 backdrop-blur-lg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Hotel Deja Vu. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
-        $(window).scroll(function() {
-            if ($(document).scrollTop() > 50) {
-                $('.nav').addClass('affix');
-                console.log("OK");
-            } else {
-                $('.nav').removeClass('affix');
-            }
-        });
-
-        // Search functionality
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
             const servicioTableBody = document.getElementById('servicioTableBody');

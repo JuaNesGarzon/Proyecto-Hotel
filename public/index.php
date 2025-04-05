@@ -88,11 +88,10 @@ if (!$loggedIn) {
                     </svg>
                 </button>
                 <nav class="mt-8">
-                    <a href="/" class="block py-2.5 text-gray-600 hover:text-gray-900">Inicio</a>
+                    <a href="index.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Inicio</a>
                     <a href="habitaciones.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Habitaciones</a>
                     <a href="restaurante.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Restaurante</a>
                     <a href="spa.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Spa</a>
-                    <a href="contacto.php" class="block py-2.5 text-gray-600 hover:text-gray-900">Contacto</a>
                     <form method="POST" class="space-y-4">
                         <button type="submit" name="cerrar_sesion"
                         class="cerrar_sesion flex items-center justify-center w-full px-4 py-2 text-sm font-medium mt-80 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" id="cerrar_sesion">
@@ -100,7 +99,6 @@ if (!$loggedIn) {
                         Cerrar sesión
                         </button>
                     </form>
-                    <!-- <a href='logout.php' class="block py-2.5 text-gray-600 hover:text-gray-900">Cerrar sesión</a> -->
                 </nav>
             </div>
         </div>
@@ -126,12 +124,12 @@ if (!$loggedIn) {
                 class="w-full max-w-4xl mx-auto p-6 bg-white/10 backdrop-blur-md rounded-lg">
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
                     <div class="space-y-2">
-                        <label for="check-in" class="block text-white">Check in</label>
+                        <label for="check-in" class="block text-white">Fecha ingreso</label>
                         <input type="date" id="check-in" name="check-in"
                             class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white" required>
                     </div>
                     <div class="space-y-2">
-                        <label for="check-out" class="block text-white">Check out</label>
+                        <label for="check-out" class="block text-white">Fecha salida</label>
                         <input type="date" id="check-out" name="check-out"
                             class="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white" required>
                     </div>
@@ -394,10 +392,9 @@ if (!$loggedIn) {
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <!-- Contacts Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Contacts</h4>
+                    <h4 class="text-xl mb-6">Contactos</h4>
                     <address class="not-italic mb-4">
-                        Baker Street 567, Los Angeles 11023<br>
-                        California - US
+                        Guarne
                     </address>
                     <a href="mailto:info@hoteldejavucom"
                         class="text-neutral-300 hover:text-white transition duration-200">
@@ -405,7 +402,7 @@ if (!$loggedIn) {
                     </a>
                     <div class="mt-2">
                         <a href="tel:+4344324232" class="text-neutral-300 hover:text-white transition duration-200">
-                            +434 43242232
+                            +57 319 5277984
                         </a>
                     </div>
                     <!-- Social Media Icons -->
@@ -439,28 +436,23 @@ if (!$loggedIn) {
 
                 <!-- Explore Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Explore</h4>
+                    <h4 class="text-xl mb-6">Explorar</h4>
                     <nav class="flex flex-col gap-3">
-                        <a href="/" class="text-neutral-300 hover:text-white transition duration-200">Home</a>
-                        <a href="about.php" class="text-neutral-300 hover:text-white transition duration-200">About
-                            Us</a>
-                        <a href="rooms.php" class="text-neutral-300 hover:text-white transition duration-200">Rooms &
+                        <a href="index.php" class="text-neutral-300 hover:text-white transition duration-200">inicio</a>
+                        <a href="about.php" class="text-neutral-300 hover:text-white transition duration-200">Sobre nosotros</a>
+                        <a href="rooms.php" class="text-neutral-300 hover:text-white transition duration-200">Habitaciones &
                             Suites</a>
-                        <a href="news.php" class="text-neutral-300 hover:text-white transition duration-200">News &
-                            Events</a>
-                        <a href="contact.php"
-                            class="text-neutral-300 hover:text-white transition duration-200">Contacts</a>
-                        <a href="terms.php" class="text-neutral-300 hover:text-white transition duration-200">Terms and
-                            Conditions</a>
+                        <a href="news.php" class="text-neutral-300 hover:text-white transition duration-200">Noticias y eventos</a>
+                        <a href="terms.php" class="text-neutral-300 hover:text-white transition duration-200">Terminos y condiciones</a>
                     </nav>
                 </div>
 
                 <!-- Newsletter Column -->
                 <div>
-                    <h4 class="text-xl mb-6">Newsletter</h4>
+                    <h4 class="text-xl mb-6">Ofertas</h4>
                     <form action="subscribe.php" method="POST" class="space-y-4">
                         <div class="relative">
-                            <input type="email" name="email" placeholder="Your email"
+                            <input type="email" name="email" placeholder="Tu email"
                                 class="w-full bg-neutral-800 border-neutral-700 rounded-md py-2 px-4 text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-600"
                                 required>
                             <button type="submit"
@@ -473,7 +465,7 @@ if (!$loggedIn) {
                             </button>
                         </div>
                         <p class="text-sm text-neutral-400">
-                            Receive latest offers and promos without spam. You can cancel anytime.
+                        Recibe las últimas ofertas y promociones sin spam. Puedes cancelar en cualquier momento.
                         </p>
                     </form>
                 </div>
@@ -481,11 +473,289 @@ if (!$loggedIn) {
 
             <!-- Copyright -->
             <div class="mt-12 pt-8 border-t border-neutral-800 text-center text-neutral-400 text-sm">
-                <p>&copy; Hotel Deja Vu - by <a href="#" class="hover:text-white transition duration-200">Ansonika</a>
+                <p>&copy; Hotel Deja Vu <a href="#" class="hover:text-white transition duration-200"></a>
                 </p>
             </div>
         </div>
     </footer>
+
+    <!-- Modal de Galería de Habitaciones -->
+<div id="roomGalleryModal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+  <div class="relative z-10 flex items-center justify-center h-full w-full p-4">
+    <div class="bg-white rounded-xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center p-4 border-b">
+        <h3 id="modalRoomTitle" class="text-2xl font-serif text-neutral-800">Galería de Habitación</h3>
+        <button id="closeGalleryModal" class="text-neutral-500 hover:text-neutral-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="relative flex-grow overflow-hidden">
+        <div id="galleryImageContainer" class="relative h-full">
+          <img id="galleryImage" src="/placeholder.svg" alt="" class="w-full h-[50vh] object-cover">
+          <div class="absolute bottom-0 left-0 right-0 bg-black/60 p-4 text-white">
+            <p id="galleryImageDescription" class="text-sm"></p>
+          </div>
+        </div>
+        <button id="prevImage" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 rounded-full p-2 text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="nextImage" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 rounded-full p-2 text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+      <div id="galleryThumbnails" class="flex overflow-x-auto p-2 gap-2 bg-neutral-100"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modifica la sección de Rooms & Suites para que las tarjetas abran el modal -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Datos de la galería de habitaciones - reemplaza con tus imágenes y descripciones reales
+  const roomGalleries = {
+    "junior-suite": [
+      {
+        src: "images/junior_suite.jpg", 
+        alt: "Vista principal de la habitación estándar",
+        description: "Amplia y luminosa habitación estándar con cama king-size y vistas a la ciudad."
+      },
+      {
+        src: "images/bañohumilde.jpg", 
+        alt: "Baño de la habitación estándar",
+        description: "Baño moderno con ducha de lluvia y amenidades premium (Alejar la imagen para ver claramente)."
+      },
+      {
+        src: "images/deskHumilde.jpg", 
+        alt: "Área de trabajo de la habitación estándar",
+        description: "Cómoda área de trabajo con escritorio y silla ergonómica (Alejar la imagen para ver claramente)."
+      }
+    ],
+    "deluxe-room": [
+      {
+        src: "images/deluxe_room.jpg", 
+        alt: "Vista principal de la habitación de lujo",
+        description: "Elegante habitación de lujo con cama king-size y decoración exclusiva."
+      },
+      {
+        src: "images/bañoNohumilde.jpg", 
+        alt: "Baño de la habitación de lujo",
+        description: "Baño de mármol con bañera independiente y ducha de lluvia (Alejar la imagen para ver claramente)."
+      },
+      {
+        src: "images/deskNohumilde.jpg", 
+        alt: "Vista desde la habitación de lujo",
+        description: "Impresionantes vistas panorámicas desde la ventana de la habitación (Alejar la imagen para ver claramente)."
+      }
+    ],
+    "superior-room": [
+      {
+        src: "images/superior_room.jpg", 
+        alt: "Vista principal de la habitación superior",
+        description: "Espaciosa habitación superior con zona de estar y vistas al jardín."
+      },
+      {
+        src: "images/bañoClasista.jpg", 
+        alt: "Baño de la habitación superior",
+        description: "Lujoso baño con bañera de hidromasaje y ducha independiente (Alejar la imagen para ver claramente)."
+      },
+      {
+        src: "images/deskClasista.jpg", 
+        alt: "Sala de estar de la habitación superior",
+        description: "Elegante sala de estar con sofá, sillones y mesa de comedor (Alejar la imagen para ver claramente)."
+      }
+    ]
+  };
+
+  // Obtener elementos del modal
+  const modal = document.getElementById('roomGalleryModal');
+  const closeBtn = document.getElementById('closeGalleryModal');
+  const galleryImage = document.getElementById('galleryImage');
+  const galleryImageDescription = document.getElementById('galleryImageDescription');
+  const prevBtn = document.getElementById('prevImage');
+  const nextBtn = document.getElementById('nextImage');
+  const thumbnailsContainer = document.getElementById('galleryThumbnails');
+  const modalRoomTitle = document.getElementById('modalRoomTitle');
+
+  // Estado actual de la galería
+  let currentGallery = [];
+  let currentIndex = 0;
+
+  // Modificar los enlaces de las tarjetas de habitaciones
+  const roomCards = document.querySelectorAll('.group.relative.rounded-xl.overflow-hidden');
+  roomCards.forEach(card => {
+    const link = card.querySelector('a');
+    if (link) {
+      // Extraer el tipo de habitación del href
+      const hrefParts = link.getAttribute('href').split('?');
+      const roomType = hrefParts[1]?.split('=')[1] || hrefParts[0].split('/').pop().replace('.php', '');
+      
+      // Reemplazar el comportamiento predeterminado del enlace con nuestro modal
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openGallery(roomType);
+      });
+    }
+  });
+
+  // Función para abrir la galería
+  function openGallery(roomType) {
+    // Obtener los datos de la galería para este tipo de habitación
+    currentGallery = roomGalleries[roomType] || [];
+    
+    if (currentGallery.length === 0) {
+      console.error('No se encontraron imágenes para el tipo de habitación:', roomType);
+      return;
+    }
+    
+    // Establecer el título de la habitación según el tipo
+    const roomTitles = {
+      'junior-suite': 'Habitación Estándar',
+      'deluxe-room': 'Habitación de Lujo',
+      'superior-room': 'Habitación Superior'
+    };
+    
+    modalRoomTitle.textContent = roomTitles[roomType] || 'Galería de Habitación';
+    
+    // Reiniciar a la primera imagen
+    currentIndex = 0;
+    updateGalleryImage();
+    
+    // Generar miniaturas
+    generateThumbnails();
+    
+    // Mostrar modal
+    modal.classList.remove('hidden');
+    
+    // Evitar el desplazamiento del body
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Actualizar la imagen de la galería
+  function updateGalleryImage() {
+    const image = currentGallery[currentIndex];
+    galleryImage.src = image.src;
+    galleryImage.alt = image.alt;
+    galleryImageDescription.textContent = image.description;
+    
+    // Actualizar miniatura activa
+    const thumbnails = thumbnailsContainer.querySelectorAll('.thumbnail');
+    thumbnails.forEach((thumb, idx) => {
+      if (idx === currentIndex) {
+        thumb.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+      } else {
+        thumb.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500');
+      }
+    });
+  }
+
+  // Generar miniaturas
+  function generateThumbnails() {
+    thumbnailsContainer.innerHTML = '';
+    
+    currentGallery.forEach((image, idx) => {
+      const thumbnail = document.createElement('div');
+      thumbnail.className = 'thumbnail flex-shrink-0 cursor-pointer rounded-md overflow-hidden';
+      thumbnail.innerHTML = `<img src="${image.src}" alt="Miniatura" class="w-16 h-16 object-cover">`;
+      
+      if (idx === currentIndex) {
+        thumbnail.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+      }
+      
+      thumbnail.addEventListener('click', () => {
+        currentIndex = idx;
+        updateGalleryImage();
+      });
+      
+      thumbnailsContainer.appendChild(thumbnail);
+    });
+  }
+
+  // Cerrar modal
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  // Navegar a la imagen anterior
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+    updateGalleryImage();
+  });
+
+  // Navegar a la siguiente imagen
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % currentGallery.length;
+    updateGalleryImage();
+  });
+
+  // Cerrar modal al hacer clic fuera
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Navegación con teclado
+  document.addEventListener('keydown', (e) => {
+    if (modal.classList.contains('hidden')) return;
+    
+    if (e.key === 'Escape') {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    } else if (e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      updateGalleryImage();
+    } else if (e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % currentGallery.length;
+      updateGalleryImage();
+    }
+  });
+});
+</script>
+
+<!-- Estilos adicionales para la galería modal -->
+<style>
+/* Transiciones suaves para imágenes */
+#galleryImage {
+  transition: opacity 0.3s ease;
+}
+
+/* Efecto hover para miniaturas */
+.thumbnail {
+  transition: transform 0.2s ease;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+/* Scrollbar personalizada para miniaturas */
+#galleryThumbnails::-webkit-scrollbar {
+  height: 6px;
+}
+
+#galleryThumbnails::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#galleryThumbnails::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+#galleryThumbnails::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+</style>
 </body>
 
 </html>

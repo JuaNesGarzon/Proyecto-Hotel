@@ -48,16 +48,31 @@ while ($servicio = $result_servicios->fetch_assoc()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recibo de Reserva - Hotel Deja Vu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../../public/images/logo1.ico">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#33423a'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gradient-to-r from-black to-purple-800 min-h-screen font-sans">
+<body class="bg-primary font-montserrat min-h-screen">
     <div class="container mx-auto mt-20 p-8">
-        <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-xl p-8 shadow-lg max-w-2xl mx-auto">
-            <h1 class="text-3xl font-bold text-white mb-6 text-center">Recibo de Reserva</h1>
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg max-w-2xl mx-auto">
+            <h1 class="text-3xl font-playfair font-bold text-white mb-6 text-center">Recibo de Reserva</h1>
             
             <div class="mb-6">
-                <p class="text-white">(asegurese de tomar una captura de pantalla a este recibo para confirmar en el hotel)</p><br>
+                <p class="text-white">(Asegúrese de tomar una captura de pantalla de este recibo para confirmar en el hotel)</p><br>
                 <h2 class="text-xl font-semibold text-white mb-2">Información del Huésped</h2>
                 <p class="text-white"><strong>Nombre:</strong> <?php echo $huesped['nombre'] . ' ' . $huesped['apellido']; ?></p>
                 <p class="text-white"><strong>Documento:</strong> <?php echo $huesped['documento']; ?></p>
@@ -86,15 +101,14 @@ while ($servicio = $result_servicios->fetch_assoc()) {
                 <?php endif; ?>
             </div>
 
-            <div class="mt-6 border-t border-white pt-4">
+            <div class="mt-6 border-t border-white/20 pt-4">
                 <p class="text-white text-xl font-semibold">Costo Total: $<?php echo number_format($costo_total, 2); ?></p>
             </div>
         </div>
     </div>
 
     <div class="text-center mt-8">
-        <a href="../../public/index.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 inline-block">Volver al Inicio</a>
+        <a href="../../public/index.php" class="bg-white text-primary px-6 py-2 rounded-xl hover:bg-white/90 transition duration-300 font-semibold inline-block">Volver al Inicio</a>
     </div>
 </body>
 </html>
-

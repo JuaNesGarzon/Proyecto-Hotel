@@ -14,124 +14,117 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador</title>
+    <title>Administrador - Hotel Deja Vu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="../../public/images/logo1.ico">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        'coral': '#ff7f50',
+                        'primary': '#33423a'
+                    },
                     fontFamily: {
-                        'serif': ['Playfair Display', 'serif'],
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="../../public/images/logo1.ico">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcout icon" href="../../public/images/logo1.ico">
-    <style>
-        .sidebar-hover:hover .sidebar-content {
-            width: 16rem;
-        }
-        .sidebar-hover:hover .sidebar-icon-only {
-            display: none;
-        }
-        .sidebar-hover:hover .sidebar-full {
-            display: flex;
-        }
-    </style>
 </head>
-<body class="flex bg-gray-100">
-    <!-- Sidebar izquierdo -->
-    <div class="sidebar-hover fixed inset-y-0 left-0 z-30 flex flex-col transition-all duration-300 ease-in-out">
-        <div class="sidebar-content flex flex-col w-16 h-full overflow-hidden text-gray-400 bg-gray-900 transition-all duration-300">
-            <a class="flex items-center justify-center h-16 bg-gray-800" href="#">
-                <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-                </svg>
-            </a>
-            <div class="flex flex-col flex-grow">
-                <nav class="flex-grow">
-                    <ul class="flex flex-col py-4 space-y-1">
-                        <li class="px-4">
-                            <a href="#" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
-                                <span class="sidebar-icon-only">
-                                    <i class='bx bxs-dashboard w-6 h-6 text-1xl scale-150'></i>
-                                </span>
-                                <span class="ml-3 sidebar-full hidden">Inicio</span>
-                            </a>
-                        </li>
-                        <li class="px-4">
-                            <a href="./CRUD/CRUDadmin.php" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
-                                <span class="sidebar-icon-only">
-                                    <i class='bx bx-data w-8 h-6 text-1xl scale-150'></i>
-                                </span>
-                                <span class="ml-3 sidebar-full hidden">CRUD</span>
-                            </a>
-                        </li>
-                        <li class="px-4">
-                            <a href="informes.php" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
-                                <span class="sidebar-icon-only">
-                                    <i class='bx bx-line-chart w-8 h-6 text-1xl scale-150'></i>
-                                </span>
-                                <span class="ml-3 sidebar-full hidden text-auto">Informes Financieros</span>
-                            </a>
-                        </li>
-                        <li class="px-4">
-                            <a href="CuentasProv.php" class="flex items-center h-10 px-3 text-gray-400 transition-colors duration-300 ease-in-out hover:bg-gray-700 hover:text-white rounded-lg">
-                                <span class="sidebar-icon-only">
-                                    <i class='bx bx-receipt w-8 h-6 text-1xl scale-150'></i>
-                                </span>
-                                <span class="ml-3 sidebar-full hidden">Cuentas de Proveedores</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+<body class="bg-primary font-montserrat min-h-screen text-white">
+    <!-- Sidebar móvil -->
+    <div class="lg:hidden fixed inset-y-0 left-0 z-30 w-64 bg-white/10 backdrop-blur-lg transform transition-transform duration-300 ease-in-out" 
+         id="mobile-menu">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-center h-16 border-b border-white/20">
+                <h1 class="text-xl font-playfair font-bold">Hotel Deja Vu</h1>
             </div>
+            <nav class="flex-grow py-4">
+                <a href="#" class="flex items-center px-6 py-3 text-white hover:bg-white/10">
+                    <i class='bx bxs-dashboard mr-3 text-xl'></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="./CRUD/CRUDadmin.php" class="flex items-center px-6 py-3 text-white hover:bg-white/10">
+                    <i class='bx bx-data mr-3 text-xl'></i>
+                    <span>CRUD</span>
+                </a>
+                <a href="informes.php" class="flex items-center px-6 py-3 text-white hover:bg-white/10">
+                    <i class='bx bx-line-chart mr-3 text-xl'></i>
+                    <span>Informes Financieros</span>
+                </a>
+                <a href="CuentasProv.php" class="flex items-center px-6 py-3 text-white hover:bg-white/10">
+                    <i class='bx bx-receipt mr-3 text-xl'></i>
+                    <span>Cuentas de Proveedores</span>
+                </a>
+            </nav>
         </div>
     </div>
 
     <!-- Contenido principal -->
-    <div class="flex-1 ml-16">
-        <header class="bg-white shadow">
+    <div class="lg:ml-0">
+        <header class="bg-white/10 backdrop-blur-lg">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold text-gray-900">Panel de Administración</h1>
+                <h1 class="text-3xl font-playfair font-bold mb-6">Panel de Administración</h1>
+                
+                <!-- Navegación desktop -->
+                <nav class="hidden lg:flex space-x-6">
+                    <a href="indexAdmin.php" class="flex items-center text-white hover:text-white/80 transition-colors">
+                        <i class='bx bxs-dashboard mr-2 text-xl'></i>
+                        <span>Inicio</span>
+                    </a>
+                    <a href="./CRUD/CRUDadmin.php" class="flex items-center text-white hover:text-white/80 transition-colors">
+                        <i class='bx bx-data mr-2 text-xl'></i>
+                        <span>CRUD</span>
+                    </a>
+                    <a href="informes.php" class="flex items-center text-white hover:text-white/80 transition-colors">
+                        <i class='bx bx-line-chart mr-2 text-xl'></i>
+                        <span>Informes Financieros</span>
+                    </a>
+                    <a href="CuentasProv.php" class="flex items-center text-white hover:text-white/80 transition-colors">
+                        <i class='bx bx-receipt mr-2 text-xl'></i>
+                        <span>Cuentas de Proveedores</span>
+                    </a>
+                </nav>
             </div>
         </header>
+
         <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <!-- Agrega tu contenido principal aquí -->
             <div class="px-4 py-6 sm:px-0">
-                <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
+                <div class="border-2 border-white/20 rounded-xl h-96 bg-white/10 backdrop-blur-lg p-6">
+                    <!-- Contenido del panel -->
+                </div>
             </div>
         </main>
     </div>
 
-    <!-- Sidebar derecho -->
-    <div class="fixed inset-y-0 right-0 z-30 w-64 bg-gray-800 text-white">
-        <div class="flex flex-col h-full">
-            <div class="flex items-center justify-between px-4 h-16 bg-gray-700">
-                <div class="flex items-center">
-                    <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                    <span class="text-lg font-semibold">Admin <?php echo $_SESSION['nombre']; ?></span>
-                </div>
-            </div>
-            <div class="flex-grow"></div>
-            <div class="p-4">
-                <form method="POST">
-                    <button type="submit" name="cerrar_sesion" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                        Cerrar sesión
-                    </button>
-                </form>
-            </div>
+    <!-- Perfil y cerrar sesión -->
+    <div class="fixed top-0 right-0 p-4 flex items-center space-x-4">
+        <div class="flex items-center bg-coral/70 backdrop-blur-lg rounded-xl px-4 py-2">
+            <i class='bx bxs-user-circle text-2xl mr-2'></i>
+            <span class="font-medium">Admin <?php echo $_SESSION['nombre']; ?></span>
         </div>
+        <form method="POST" class="inline-block">
+            <button type="submit" name="cerrar_sesion" 
+                    class="bg-white/20 backdrop-blur-lg hover:bg-red-600 text-white px-4 py-2 rounded-xl transition-colors flex items-center">
+                <i class='bx bx-log-out mr-2'></i>
+                Cerrar sesión
+            </button>
+        </form>
     </div>
+
+    <!-- Toggle menú móvil -->
+    <button class="lg:hidden fixed bottom-4 right-4 bg-white/10 backdrop-blur-lg p-3 rounded-full text-white" 
+            onclick="document.getElementById('mobile-menu').classList.toggle('-translate-x-full')">
+        <i class='bx bx-menu text-2xl'></i>
+    </button>
 </body>
 </html>
-

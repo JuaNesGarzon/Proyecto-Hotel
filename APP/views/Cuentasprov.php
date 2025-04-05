@@ -47,16 +47,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pagar_factura'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuentas de Proveedores - Hotel Deja Vu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../../public/images/logo1.ico">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#33423a'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 font-serif">
+<body class="bg-primary font-montserrat text-white">
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6 text-center">Cuentas de Proveedores</h1>
+        <h1 class="text-3xl font-playfair font-bold mb-6 text-center">Cuentas de Proveedores</h1>
         
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg">
             <table class="min-w-full">
-                <thead class="bg-gray-200 text-gray-700">
+                <thead class="bg-white/5 text-white">
                     <tr>
                         <th class="py-3 px-4 text-left">Proveedor</th>
                         <th class="py-3 px-4 text-left">Número de Factura</th>
@@ -67,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pagar_factura'])) {
                         <th class="py-3 px-4 text-left">Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-600">
+                <tbody class="text-white/90">
                     <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <tr class="border-b border-white/10 hover:bg-white/5">
                             <td class="py-3 px-4"><?php echo htmlspecialchars($row['nombre_proveedor']); ?></td>
                             <td class="py-3 px-4"><?php echo htmlspecialchars($row['numero_factura']); ?></td>
                             <td class="py-3 px-4"><?php echo htmlspecialchars($row['fecha_emision']); ?></td>
@@ -77,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pagar_factura'])) {
                             <td class="py-3 px-4">$<?php echo number_format($row['monto'], 2); ?></td>
                             <td class="py-3 px-4">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    <?php echo $row['estado'] == 'pagada' ? 'bg-green-100 text-green-800' : 
-                                        ($row['estado'] == 'vencida' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'); ?>">
+                                    <?php echo $row['estado'] == 'pagada' ? 'bg-green-500/20 text-green-200' : 
+                                        ($row['estado'] == 'vencida' ? 'bg-red-500/20 text-red-200' : 'bg-yellow-500/20 text-yellow-200'); ?>">
                                     <?php echo ucfirst($row['estado']); ?>
                                 </span>
                             </td>
@@ -87,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pagar_factura'])) {
                                     <form method="POST" class="inline">
                                         <input type="hidden" name="id_factura" value="<?php echo $row['id_factura']; ?>">
                                         <input type="hidden" name="monto_pagado" value="<?php echo $row['monto']; ?>">
-                                        <button type="submit" name="pagar_factura" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">
+                                        <button type="submit" name="pagar_factura" class="bg-white text-primary font-bold py-1 px-2 rounded-xl text-xs hover:bg-white/90 transition-colors">
                                             Registrar Pago
                                         </button>
                                     </form>
@@ -98,8 +113,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pagar_factura'])) {
                 </tbody>
             </table>
         </div>
+        
+        <div class="mt-8">
+            <a href="indexAdmin.php" class="bg-white text-primary px-4 py-2 rounded-xl hover:bg-white/90 transition-colors font-semibold inline-block">
+                Volver
+            </a>
+        </div>
     </div>
-    <a href="indexAdmin.php" class="bg-blue-500 text-white px-4 py-2 rounded text-center hover:bg-blue-600">Volver</a>
 </body>
 </html>
 

@@ -16,7 +16,7 @@ class HuespedController {
     }
 
     public function __construct() {
-        $this->conexion =$this->inicializarConexion();
+        $this->conexion = $this->inicializarConexion();
         if (!$this->conexion) {
             die("Error al conectar con la base de datos.");
         }
@@ -37,7 +37,6 @@ class HuespedController {
         $contraseña = $encriptarDesencriptar->encrypt($datos['password'], $this->clave);
 
         // consulta para insertar el usuario
-
         $query = "SELECT id_huesped FROM huespedes WHERE documento = ? ";
         $stmt = $this->conexion->prepare($query);
         try {
@@ -47,6 +46,17 @@ class HuespedController {
             if ($stmt->num_rows > 0) {                    
                 return "Ya existe un usuario con ese documento.";
             } else{
+                // Verificar si el correo ya existe
+                $emailQuery = "SELECT id_huesped FROM huespedes WHERE correo = ?";
+                $emailStmt = $this->conexion->prepare($emailQuery);
+                $emailStmt->bind_param("s", $correo);
+                $emailStmt->execute();
+                $emailStmt->store_result();
+                
+                if ($emailStmt->num_rows > 0) {
+                    return "Ya existe un usuario con ese correo electrónico.";
+                }
+                
                 $sql = "INSERT INTO huespedes (nombre, apellido, documento, telefono, nacionalidad, correo, contraseña)
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
                     
@@ -56,7 +66,7 @@ class HuespedController {
                     $stmt->bind_param("sssisss", $nombre, $apellido, $documento, $telefono, $nacionalidad, $correo, $contraseña);
                     // Ejecutar la consulta y verificar resultados
                     if ($stmt->execute()) {
-                        return "Usuario registrado con éxito.";
+                        return "Usuario registrado con éxito. ¡Bienvenido a Hotel Deja Vu!";
                     } else {
                         return "Error al registrar el usuario: " . $stmt->error;
                     }
@@ -95,10 +105,10 @@ class HuespedController {
                 header("Location: ../../public/index.php");
                 exit();
             } else {
-                return"La contraseña no es correcta";
+                return "La contraseña no es correcta. Por favor, inténtalo de nuevo.";
             }
         } else {
-            return "No se encontró un usuario con ese correo.";
+            return "No se encontró un usuario con ese correo. Verifica o regístrate.";
         }
     }
 

@@ -3,12 +3,31 @@ session_start();
 include __DIR__ . '/../../APP/controllers/huespedController.php';
 
 $mensaje = ""; // inicializamos la variable
+$tipoMensaje = ""; // para determinar el color del mensaje (success, error, warning)
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['registrarse'])) {
-        $mensaje = $huespedController->registrarHuesped($_POST);
+        $resultado = $huespedController->registrarHuesped($_POST);
+        // Determinar el tipo de mensaje
+        if (strpos($resultado, "éxito") !== false) {
+            $tipoMensaje = "success";
+        } else if (strpos($resultado, "Error") !== false) {
+            $tipoMensaje = "error";
+        } else {
+            $tipoMensaje = "warning";
+        }
+        $mensaje = $resultado;
     } else if (isset($_POST['iniciar_sesion'])) {
-        $mensaje = $huespedController->iniciarSesion($_POST);
+        $resultado = $huespedController->iniciarSesion($_POST);
+        // Determinar el tipo de mensaje
+        if (strpos($resultado, "éxito") !== false) {
+            $tipoMensaje = "success";
+        } else if (strpos($resultado, "Error") !== false) {
+            $tipoMensaje = "error";
+        } else {
+            $tipoMensaje = "warning";
+        }
+        $mensaje = $resultado;
     }
 }
 ?>
@@ -28,9 +47,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <?php if (!empty($mensaje)): ?>
-        <script>
-            alert("<?php echo addslashes($mensaje); ?>");
-        </script>
+        <div id="notification" style="
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 7px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            max-width: 350px;
+            font-family: 'Montserrat', sans-serif;
+            animation: fadeIn 0.5s ease-out;
+            <?php if ($tipoMensaje === "success"): ?>
+                background-color: #33423a;
+                color: white;
+                border: 2px solid #1a231e;
+            <?php elseif ($tipoMensaje === "error"): ?>
+                background-color: #e74c3c;
+                color: white;
+                border: 2px solid #c0392b;
+            <?php else: ?>
+                background-color: coral;
+                color: black;
+                border: 2px solid #e67e22;
+            <?php endif; ?>
+        ">
+            <i class='bx 
+                <?php 
+                if ($tipoMensaje === "success") echo "bx-check-circle";
+                else if ($tipoMensaje === "error") echo "bx-x-circle";
+                else echo "bx-error";
+                ?>' style="margin-right: 12px; font-size: 24px;"></i>
+            <span style="font-size: 14px;"><?php echo $mensaje; ?></span>
+            <i class='bx bx-x' style="margin-left: 12px; cursor: pointer; font-size: 20px;" onclick="closeNotification()"></i>
+        </div>
     <?php endif; ?>
 
     <div class="admin-button">
@@ -55,34 +107,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>crear una cuenta</h2>
                 <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <label>
-                        <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
+                    <i class='bx bxs-user' ></i>
                         <input type="text" name="nombre" placeholder="nombre" required/>
                     </label>
                     <label>
-                        <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
+                    <i class='bx bxs-user' ></i>
                         <input type="text" name="apellido" placeholder="apellido" required/>
                     </label>
                     <label>
-                        <i class='bx bx-id-card bx-tada bx-rotate-90'></i>
+                    <i class='bx bxs-id-card' ></i>
                         <input type="number" name="documento" placeholder="documento" required/>
                     </label>
                     <label>
-                        <i class='bx bx-phone bx-tada bx-rotate-90'></i>
+                    <i class='bx bxs-phone' ></i>
                         <input type="tel" name="telefono" placeholder="telefono" required/>
                     </label>
                     <label>
-                        <i class='bx bxs-user bx-tada bx-flip-vertical'></i>
+                    <i class='bx bxs-user' ></i>
                         <input type="text" name="nacionalidad" placeholder="Nacionalidad" required/>
                     </label>
                     <label>
-                        <i class='bx bx-envelope bx-tada bx-rotate-90'></i>
+                    <i class='bx bxs-envelope' ></i>
                         <input type="email" name="correo" placeholder="correo electronico" required/>
                     </label>
                     <label>
-                        <i class='bx bx-lock bx-tada bx-rotate-90'></i>
+                    <i class='bx bxs-lock' ></i>
                         <span>crea una contraseña</span>
                         <input type="password" id="passwordRegister" name="password" placeholder="contraseña" maxlength="10" required/>
-                        <i class='bx bx-hide password-toggle bx-tada' id="togglePasswordRegister"></i>
+                        <i class='bx bx-hide password-toggle' id="togglePasswordRegister"></i>
                     </label>
                     <button type="submit" name="registrarse" value="registrarse">registrarse</button>
                 </form>
@@ -103,18 +155,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-information-child">
                 <h2>ingresa tu cuenta</h2>
                 <div class="icon">
-                    <i class='bx bxl-gmail bx-tada'></i>
-                    <i class='bx bxl-facebook bx-flip-vertical bx-tada'></i>
-                    <i class='bx bxl-instagram bx-tada bx-flip-vertical'></i>
+                <i class='bx bxl-gmail' ></i>
+                <i class='bx bxl-facebook' ></i>
+                <i class='bx bxl-instagram' ></i>
                 </div>
                 <form id="sign-up-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <label>
-                        <i class='bx bx-envelope bx-tada bx-rotate-90'></i>
+                    <i class='bx bxs-envelope' ></i>
                         <input type="email" name="email" placeholder="correo electronico" required/>
                     </label>
                     <label>
-                        <i class='bx bx-lock bx-tada bx-rotate-90'></i>
-                        <input type="password" id="passwordLogin" name="password" placeholder="contraseña" required/>
+                    <i class='bx bxs-lock' ></i>
+                        <input type="password" id="passwordLogin" name="password" placeholder="contraseña" maxlength="10" required/>
                         <i class='bx bx-hide password-toggle' id="togglePasswordLogin"></i>
                     </label>
                     <a href="restablecer.php">Olvide mi contraseña</a>
@@ -125,5 +177,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Función para cerrar la notificación
+        function closeNotification() {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        // Cerrar automáticamente después de 5 segundos
+        if (document.getElementById('notification')) {
+            setTimeout(closeNotification, 5000);
+        }
+
+        // Añadir animación de entrada
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+            </style>
+        `);
+    </script>
 </body>
 </html>
